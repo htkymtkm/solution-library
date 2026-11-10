@@ -16,21 +16,19 @@
 html,body{margin:0;background:var(--bg);color:var(--text);
   font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Hiragino Sans",sans-serif;}
 button,input,select,textarea{font:inherit;color:inherit}
-.app{max-width:900px;margin:0 auto;padding:0 12px calc(40px + env(safe-area-inset-bottom))}
+.app{max-width:1120px;margin:0 auto;padding:0 12px calc(40px + env(safe-area-inset-bottom))}
 .spacer{flex:1}
-.muted{color:var(--muted)} .small{font-size:12px}
+.muted{color:var(--muted)} .small{font-size:12px} .warn{color:#c47a00}
 .error{color:var(--danger);font-size:13px;white-space:pre-wrap}
 
 /* top */
-.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:6px;
-  padding:calc(8px + env(safe-area-inset-top)) 0 8px;background:var(--bg);border-bottom:1px solid var(--line)}
-.brand{font-weight:700;font-size:16px;cursor:pointer}
-.sync-status{font-size:12px;color:var(--muted);margin-right:2px}
+.topbar{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:calc(8px + env(safe-area-inset-top)) 0 8px}
+.toprow{display:flex;align-items:center;gap:6px}
+.brand{font-weight:700;font-size:15px;white-space:nowrap}
+.game-sel{max-width:46vw;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-weight:600}
+.sync-status{font-size:11px;color:var(--muted);white-space:nowrap}
 .sync-status.warn{color:#c47a00} .sync-status.err{color:var(--danger)}
-.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;padding:8px 0;font-size:13px}
-.crumbs a{color:var(--accent);cursor:pointer;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
-.crumbs a.cur{color:var(--text);font-weight:600;cursor:default}
-.crumbs .sep{color:var(--muted)}
 
 /* buttons */
 .btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 11px;cursor:pointer;white-space:nowrap}
@@ -44,42 +42,62 @@ button,input,select,textarea{font:inherit;color:inherit}
 .seg>button.on{background:var(--text);color:#fff;border-color:var(--text)}
 .seg>button:disabled{opacity:.4}
 
-/* lists */
-.page h2{margin:0;font-size:18px}
-.section-head{display:flex;align-items:center;gap:6px;margin:8px 0}
-.list{list-style:none;margin:0;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.list li{display:flex;align-items:center;gap:8px;padding:11px 12px;border-top:1px solid var(--line);cursor:pointer}
-.list li:first-child{border-top:none}
-.list li:active{background:#f5f5f7}
-.list .lname{font-weight:600}
-.kind{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px}
-.empty{padding:22px 14px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:var(--radius)}
-.banner{padding:10px 12px;border-radius:var(--radius);background:#eef4ff;color:#244c93;font-size:13px;margin-bottom:10px}
+/* strip */
+.strip{display:flex;gap:4px;overflow-x:auto;padding:10px 0 8px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.step{flex:none;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;min-width:54px;
+  padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);cursor:pointer;text-align:left}
+.step .spos{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.step .slab{font-size:12px;font-weight:600;white-space:nowrap}
+.step.fold{opacity:.55;min-width:44px}
+.step.cur{border:2px solid var(--accent);cursor:default;background:#f3f7ff}
+.step.cur .slab{color:var(--accent)}
+.step.sep{border:none;background:none;min-width:auto;padding:0 2px;color:var(--muted);cursor:default}
 
-/* node header */
-.node-head{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px}
-.node-title{display:flex;align-items:center;gap:8px}
-.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;align-items:center}
-.chip{background:var(--chip);border-radius:999px;padding:2px 9px;font-size:12px}
-.node-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.note{margin:10px 0 0;white-space:pre-wrap;font-size:13px;color:#444;background:#fbfaf3;border-radius:8px;padding:8px 10px}
+/* decision */
+.decision{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px}
+.dtitle{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.actbtn{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);border-radius:8px;
+  padding:8px 11px;cursor:pointer;font-weight:600}
+.actbtn:active{background:#f0f0f2}
+.actbtn i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.actbtn b{font-weight:500;color:var(--muted);font-size:12px}
+.actbtn .cnt{font-size:10px;font-weight:600;color:#fff;background:var(--accent);border-radius:999px;padding:0 6px;line-height:16px}
+.actbtn.ghost{border-style:dashed}
+.actbtn.sugg{border-style:dashed;color:var(--muted);font-weight:500}
+.foldto{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px}
+.mini{border:1px solid var(--line);background:var(--chip);border-radius:999px;padding:2px 10px;font-size:12px;cursor:pointer}
+
+/* tabs & layout */
+.tabs{display:flex;gap:2px;margin:12px 0 0;border-bottom:1px solid var(--line)}
+.tabs button{border:none;background:none;padding:8px 14px;cursor:pointer;color:var(--muted);font-weight:600;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button.on{color:var(--text);border-bottom-color:var(--text)}
+.main-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:10px}
+@media(min-width:900px){ .main-grid{grid-template-columns:minmax(0,560px) minmax(0,1fr)} }
+.side{display:flex;flex-direction:column;gap:10px;min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px}
+.panel h4{margin:0 0 6px;font-size:13px;color:var(--muted)}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.note{margin:0;white-space:pre-wrap;font-size:13px;color:#444}
+.empty{padding:22px 14px;text-align:center;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:var(--radius);margin-top:10px}
+.empty .tools{justify-content:center;margin-top:10px}
+.banner{padding:10px 12px;border-radius:var(--radius);background:#eef4ff;color:#244c93;font-size:13px;margin-top:10px}
 
 /* cards */
 .board{display:inline-flex;gap:3px}
 .card{display:inline-block;min-width:26px;text-align:center;padding:1px 4px;border-radius:5px;color:#fff;font-weight:700;font-size:13px}
-.card.sm{min-width:20px;font-size:12px;padding:0 3px}
+.card.sm{min-width:19px;font-size:12px;padding:0 3px}
 .s-s{background:#3a3a3c} .s-h{background:#d6363b} .s-d{background:#2f6fde} .s-c{background:#2e9a54}
 
 /* summary */
-.summary{margin-top:12px}
 .stack-bar{display:flex;height:14px;border-radius:4px;overflow:hidden;background:#eee}
 .stack-bar>div{height:100%}
 .legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px;font-size:12px}
-.legend i,.act i,.drow i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.legend i,.drow i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
 
 /* grid */
 .grid{display:grid;grid-template-columns:repeat(13,1fr);gap:1px;background:var(--line);border:1px solid var(--line);
-  width:100%;max-width:560px;margin:6px auto;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+  width:100%;max-width:560px;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .grid.editing{touch-action:none}
 .cell{position:relative;aspect-ratio:1/1;background:#f4f4f5;overflow:hidden;cursor:pointer}
 .cell .fill{position:absolute;left:0;right:0;bottom:0;display:flex}
@@ -87,11 +105,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .cell .lbl{position:absolute;top:1px;left:2px;font-size:clamp(7px,2.3vw,11px);font-weight:600;color:#1d1d1f;pointer-events:none;
   text-shadow:0 0 2px rgba(255,255,255,.8)}
 .cell.out .lbl{color:#c4c4c8;text-shadow:none}
-.cell .val{position:absolute;right:2px;bottom:1px;font-size:clamp(6px,1.9vw,9px);pointer-events:none;color:#1d1d1f}
+.cell .val{position:absolute;right:2px;bottom:1px;font-size:clamp(6px,1.9vw,9px);pointer-events:none}
 .cell.sel{outline:2px solid #111;outline-offset:-2px;z-index:1}
+.grid.small .lbl{font-size:clamp(6px,1.6vw,9px)}
 
 /* detail */
-.detail{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;max-width:560px;margin:8px auto}
 .detail-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .detail-head b{font-size:16px}
 .x{border:none;background:none;font-size:20px;line-height:1;cursor:pointer;color:var(--muted)}
@@ -103,7 +121,6 @@ button,input,select,textarea{font:inherit;color:inherit}
 .dstats{display:flex;gap:16px;margin-top:8px;font-size:13px}
 
 /* brush */
-.brush{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px 12px;max-width:560px;margin:8px auto}
 .brush-row{display:flex;align-items:center;gap:8px;margin:5px 0}
 .brush-row .pure,.brush-row .lab{width:96px;flex:none;border:none;border-radius:6px;padding:5px 6px;color:#fff;font-size:12px;font-weight:600;
   cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
@@ -112,19 +129,10 @@ button,input,select,textarea{font:inherit;color:inherit}
 .num{width:56px;padding:4px 6px;border:1px solid var(--line);border-radius:6px;text-align:right}
 .brush-actions{display:flex;align-items:center;gap:6px;margin-top:8px;flex-wrap:wrap}
 
-/* next actions */
-.next{margin-top:16px}
-.next h3{font-size:14px;margin:0 0 6px;color:var(--muted);font-weight:600}
-.act-list{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.act-row{border-top:1px solid var(--line)} .act-row:first-child{border-top:none}
-.act{display:flex;align-items:center;gap:6px;width:100%;border:none;background:none;padding:11px 12px;cursor:pointer;text-align:left}
-.act:active{background:#f5f5f7}
-.act .go{color:var(--accent);font-weight:600}
-.act .add{color:var(--muted)}
-.sublist{list-style:none;margin:0;padding:0 0 6px 28px}
-.sublist li{padding:7px 8px;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:6px}
-.sublist li:active{background:#f5f5f7}
-.sublist li.addrow{color:var(--accent)}
+/* ranges */
+.ranges{display:grid;grid-template-columns:1fr;gap:12px;margin-top:10px}
+@media(min-width:760px){ .ranges{grid-template-columns:1fr 1fr} }
+.rhead{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 
 /* report */
 .filter-row{display:flex;gap:8px;align-items:center;margin:10px 0 6px}
@@ -134,6 +142,9 @@ table.report{border-collapse:collapse;width:100%;font-size:12px;font-variant-num
 table.report th,table.report td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
 table.report th{position:sticky;top:0;background:#f7f7f8;cursor:pointer;font-weight:600}
 table.report th:first-child,table.report td:first-child{text-align:left}
+table.report tbody tr:not(.avg){cursor:pointer}
+table.report tbody tr:not(.avg):active{background:#f3f7ff}
+table.report tr.cur td{background:#eef4ff}
 table.report .mix{width:110px;min-width:80px}
 table.report .mix .stack-bar{height:10px}
 table.report tr.avg td{font-weight:700;background:#fbfbfc}
@@ -143,6 +154,7 @@ table.report tr.avg td{font-weight:700;background:#fbfbfc}
 @media(min-width:640px){.modal-bg{align-items:center}}
 .modal{background:var(--panel);width:100%;max-width:520px;max-height:90vh;overflow:auto;border-radius:14px 14px 0 0;
   padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+.modal.wide{max-width:720px}
 @media(min-width:640px){.modal{border-radius:14px}}
 .modal h3{margin:0 0 12px}
 .modal label{display:block;font-size:12px;color:var(--muted);margin:10px 0 0}
@@ -152,11 +164,23 @@ table.report tr.avg td{font-weight:700;background:#fbfbfc}
 .modal .row2{display:flex;gap:10px} .modal .row2>label{flex:1}
 .modal .row{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}
 .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
-.via-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.via-chips button{border:1px solid var(--line);background:var(--chip);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
-.via-chips button.on{background:var(--text);color:#fff}
+.spot-desc{font-size:12px;background:#f7f7f8;border-radius:8px;padding:8px 10px;color:#444}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chips button{border:1px solid var(--line);background:var(--chip);border-radius:999px;padding:3px 10px;font-size:12px;cursor:pointer}
 hr{border:none;border-top:1px solid var(--line);margin:16px 0}
 .help{font-size:12px;color:var(--muted);white-space:pre-wrap;background:#f7f7f8;border-radius:8px;padding:8px 10px;margin:8px 0 0}
+.list{list-style:none;margin:10px 0 0;padding:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.list li{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line);cursor:pointer;font-size:13px}
+.list li:first-child{border-top:none}
+.list li:active{background:#f5f5f7}
+.kind{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 4px;flex:none}
+
+/* picker */
+.picker{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.prow{display:grid;grid-template-columns:repeat(13,1fr);gap:3px}
+.pcard{border:none;border-radius:5px;color:#fff;font-weight:700;padding:8px 0;cursor:pointer;font-size:13px;opacity:.9}
+.pcard.sel{outline:3px solid #111;outline-offset:-1px;opacity:1}
+.pcard:disabled{opacity:.15;cursor:default}
 
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#1d1d1f;color:#fff;
   padding:9px 16px;border-radius:999px;font-size:13px;z-index:60;max-width:90vw;text-align:center}
@@ -165,269 +189,294 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0}
 <body>
 <div id="app"></div>
 
+<!-- ======================= range grid component ======================= -->
+<script type="text/x-template" id="tpl-range">
+  <div class="grid small">
+    <div v-for="c in cells" :key="c.hand" class="cell" :class="{out: !c.segs}">
+      <div v-if="c.segs" class="fill" :style="{height: (c.w * 100) + '%'}">
+        <div v-for="(s, k) in c.segs" :key="k" :style="{width: s.pct + '%', background: s.color}"></div>
+      </div>
+      <span class="lbl">{{ c.hand }}</span>
+    </div>
+  </div>
+</script>
+
+<!-- ======================= main template ======================= -->
 <script type="text/x-template" id="tpl">
 <div class="app">
   <header class="topbar">
-    <div class="brand" @click="go(null)">Solution Library</div>
-    <div class="spacer"></div>
-    <span class="sync-status" :class="syncClass">{{ syncLabel }}</span>
-    <button class="btn icon" @click="sync()" :disabled="syncing || !configured" title="Sync">⟳</button>
-    <button class="btn icon" @click="openSettings" title="Settings">⚙</button>
+    <div class="toprow">
+      <span class="brand">Solutions</span>
+      <select class="game-sel" :value="path.game" @change="onGameSelect($event)">
+        <option v-if="!games.length" value="">No game</option>
+        <option v-for="g in games" :key="g" :value="g">{{ g }}</option>
+        <option value="__new">+ New game…</option>
+      </select>
+      <div class="spacer"></div>
+      <span class="sync-status" :class="syncClass">{{ syncLabel }}</span>
+      <button class="btn icon" @click="sync()" :disabled="syncing || !configured" title="Sync">⟳</button>
+      <button class="btn icon" @click="libOpen = true" :disabled="!path.game" title="Saved solutions">☰</button>
+      <button class="btn icon" @click="openSettings" title="Settings">⚙</button>
+    </div>
   </header>
 
-  <nav class="crumbs">
-    <a :class="{cur: !current}" @click="go(null)">Home</a>
-    <template v-for="a in breadcrumb" :key="a.id">
-      <span class="sep">›</span>
-      <a :class="{cur: a.id === currentId}" @click="go(a.id)">{{ nodeLabel(a) }}</a>
-    </template>
-  </nav>
+  <div v-if="!configured" class="banner">Not connected — data stays on this device. Connect your Google Sheet in ⚙ Settings to sync.</div>
 
-  <!-- ===== HOME ===== -->
-  <main v-if="!current" class="page">
-    <div v-if="!configured" class="banner">Not connected — data is stored on this device only. Connect your Google Sheet in ⚙ Settings to sync.</div>
-    <div class="section-head">
-      <h2>Library</h2><div class="spacer"></div>
-      <button class="btn" @click="openImport(null)">Import</button>
-      <button class="btn primary" @click="newNode(null)">+ New</button>
-    </div>
-    <div v-if="!roots.length" class="empty">No solutions yet.<br>Create a folder (e.g. “SRP BTN vs BB 100bb”) or import JSON.</div>
-    <ul v-else class="list">
-      <li v-for="n in roots" :key="n.id" @click="go(n.id)">
-        <span class="kind">{{ n.kind }}</span>
-        <span class="lname">{{ nodeLabel(n) }}</span>
-        <div class="spacer"></div>
-        <span class="muted small">{{ subtreeSize(n.id) - 1 }} nodes ›</span>
-      </li>
-    </ul>
-  </main>
+  <div v-if="!path.game" class="empty">
+    Create a game first (e.g. “MTT 6max 40bb”).
+    <div class="tools"><button class="btn primary" @click="newGame">+ New game</button></div>
+  </div>
 
-  <!-- ===== NODE ===== -->
-  <main v-else class="page">
-    <div class="node-head">
-      <div class="node-title">
-        <span class="kind">{{ current.kind }}</span>
-        <h2>{{ nodeLabel(current) }}</h2>
-      </div>
-      <div class="meta" v-if="current.kind !== 'folder'">
-        <span v-if="current.board" class="board">
-          <span v-for="(c, i) in parseBoard(current.board)" :key="i" class="card" :class="'s-' + c.s">{{ c.r }}{{ suitSym(c.s) }}</span>
-        </span>
-        <span v-if="current.street" class="chip">{{ current.street }}</span>
-        <span v-if="current.actor" class="chip">{{ current.actor }} to act</span>
-        <span v-if="current.pot != null" class="chip">Pot {{ current.pot }}bb</span>
-        <span v-if="current.stack != null" class="chip">Eff {{ current.stack }}bb</span>
-      </div>
-      <div class="node-tools">
-        <button class="btn" @click="editNode(current)">Edit</button>
-        <button class="btn" @click="openImport(current)">Import</button>
-        <button class="btn" @click="exportSubtree(current.id)">Export</button>
-        <button class="btn" @click="newNode(current.id)">+ Child</button>
-        <button class="btn danger" @click="deleteNode(current)">Delete</button>
-      </div>
-      <p v-if="current.note" class="note">{{ current.note }}</p>
+  <template v-else>
+    <!-- ===== action strip ===== -->
+    <div class="strip" ref="strip">
+      <button class="step" @click="setPath({game: path.game, pre: [], board: '', post: []})"><span class="spos">Start</span><span class="slab">⟲</span></button>
+      <template v-for="(st, k) in sim.steps" :key="k">
+        <button v-if="st.type === 'act'" class="step" :class="{fold: isFold(st.tok)}" @click="goStep(st)">
+          <span class="spos">{{ tokPos(st.tok) }}</span>
+          <span class="slab" :style="{color: stepColor(st)}">{{ tokLabel(st.tok) }}</span>
+        </button>
+        <button v-else-if="st.type === 'board'" class="step" @click="goStep(st)">
+          <span class="spos">{{ st.street }}</span>
+          <span class="board"><span v-for="(c, i) in st.cards" :key="i" class="card sm" :class="'s-' + c.s">{{ c.r }}</span></span>
+        </button>
+        <div v-else-if="st.type === 'cur'" class="step cur"><span class="spos">{{ st.pos }}</span><span class="slab">?</span></div>
+        <div v-else-if="st.type === 'cur-board'" class="step cur"><span class="spos">{{ st.street }}</span><span class="slab">?</span></div>
+      </template>
     </div>
 
-    <!-- strategy -->
-    <section v-if="current.kind === 'strategy'">
-      <div v-if="!actions.length" class="empty" style="margin-top:12px">No actions defined. Tap Edit and add actions (e.g. “Check, Bet 33%, Bet 75%”).</div>
-      <template v-else>
-        <div class="summary">
-          <div class="stack-bar"><div v-for="(a, i) in actions" :key="i" :style="{width: pct(summary.freqs[i]), background: colors[i]}"></div></div>
-          <div class="legend">
-            <span v-for="(a, i) in actions" :key="i"><i :style="{background: colors[i]}"></i>{{ a }} <b>{{ fmtPct(summary.freqs[i]) }}</b></span>
-            <span class="muted">{{ summary.combos.toFixed(1) }} combos</span>
-          </div>
-        </div>
+    <!-- ===== current decision ===== -->
+    <div v-if="isDecision" class="decision">
+      <div class="dtitle">
+        <b>{{ sim.actor }}</b><span class="muted">to act · {{ sim.street }}</span>
+        <span v-if="path.board" class="board"><span v-for="(c, i) in boardCards" :key="i" class="card sm" :class="'s-' + c.s">{{ c.r }}{{ suitSym(c.s) }}</span></span>
+        <span v-if="node && node.pot != null" class="muted small">Pot {{ node.pot }}bb</span>
+        <span v-if="node && node.stack != null" class="muted small">Eff {{ node.stack }}bb</span>
+      </div>
+      <div class="acts">
+        <button v-for="o in options" :key="o.label" class="actbtn" :class="{ghost: !o.inNode}" @click="chooseAction(o.label)">
+          <i :style="{background: o.color}"></i><span>{{ o.label }}</span>
+          <b v-if="o.freq != null">{{ fmtPct(o.freq) }}</b>
+          <span v-if="o.count" class="cnt" title="saved solutions down this line">{{ o.count }}</span>
+        </button>
+        <template v-if="!node">
+          <button v-for="g in suggestions" :key="'s' + g" class="actbtn sugg" @click="chooseAction(g)">{{ g }}</button>
+          <button class="actbtn sugg" @click="customAction">+ Other</button>
+        </template>
+      </div>
+      <div v-if="foldTo.length" class="foldto">
+        <span class="muted small">Fold to</span>
+        <button v-for="t in foldTo" :key="t" class="mini" @click="foldToPos(t)">{{ t }}</button>
+      </div>
+    </div>
 
-        <div class="seg" v-if="!editing">
-          <button :class="{on: viewMode === 'strategy'}" @click="viewMode = 'strategy'">Strategy</button>
-          <button :class="{on: viewMode === 'ev'}" :disabled="!hasEv" @click="viewMode = 'ev'">EV</button>
-          <button :class="{on: viewMode === 'equity'}" :disabled="!hasEq" @click="viewMode = 'equity'">Equity</button>
-          <div class="spacer"></div>
-          <button class="btn" @click="startEdit">Edit grid</button>
-        </div>
+    <div v-else-if="sim.phase === 'board'" class="decision">
+      <div class="dtitle"><span>Select</span><b>{{ sim.street }}</b><span class="muted small">{{ sim.active.join(' vs ') }}</span></div>
+      <div class="acts">
+        <button v-for="b in boardOptions" :key="b.str" class="actbtn" @click="pickBoard(b.str)">
+          <span class="board"><span v-for="(c, i) in b.cards" :key="i" class="card sm" :class="'s-' + c.s">{{ c.r }}</span></span>
+          <span class="cnt">{{ b.count }}</span>
+        </button>
+        <button class="actbtn sugg" @click="openPicker">+ Pick cards</button>
+      </div>
+    </div>
 
-        <div v-if="editing" class="brush">
-          <div class="brush-row" v-for="(a, i) in actions" :key="i">
-            <button class="pure" :style="{background: colors[i]}" @click="setPure(i)">{{ a }}</button>
-            <input type="range" min="0" max="100" step="5" v-model.number="brush.freqs[i]">
-            <input class="num" type="number" min="0" max="100" inputmode="numeric" v-model.number="brush.freqs[i]">
-          </div>
-          <div class="brush-row">
-            <span class="lab">Weight</span>
-            <input type="range" min="0" max="100" step="5" v-model.number="brush.weight">
-            <input class="num" type="number" min="0" max="100" inputmode="numeric" v-model.number="brush.weight">
-          </div>
-          <div class="stack-bar" style="margin-top:6px">
-            <div v-for="(f, i) in brushNorm" :key="i" :style="{width: pct(f), background: colors[i]}"></div>
-          </div>
-          <div class="brush-actions">
-            <label class="small"><input type="checkbox" v-model="brush.erase"> Erase</label>
-            <button class="btn" @click="clearDraft">Clear all</button>
-            <div class="spacer"></div>
-            <button class="btn" @click="cancelEdit">Cancel</button>
-            <button class="btn primary" @click="saveEdit">Save</button>
-          </div>
-          <div class="muted small" style="margin-top:4px">Tap or drag over cells to paint. Tap an action name for 100%.</div>
-        </div>
+    <div v-else class="decision"><span class="muted">Hand is over ({{ sim.phase }}). Tap a step above to go back.</span></div>
 
-        <div class="grid" :class="{editing}" @pointerdown="onGridDown" @pointermove="onGridMove">
-          <div v-for="c in gridCells" :key="c.hand" class="cell" :data-hand="c.hand"
-               :class="{sel: c.hand === selectedHand, out: !c.w}" :style="c.bg ? {background: c.bg} : null">
-            <div v-if="c.segs" class="fill" :style="{height: (c.w * 100) + '%'}">
-              <div v-for="(s, k) in c.segs" :key="k" :style="{width: s.pct + '%', background: s.color}"></div>
-            </div>
-            <span class="lbl">{{ c.hand }}</span>
-            <span v-if="c.val != null" class="val">{{ c.val }}</span>
-          </div>
-        </div>
+    <!-- ===== tabs ===== -->
+    <div class="tabs" v-if="tabList.length">
+      <button v-for="t in tabList" :key="t" :class="{on: tab === t}" @click="tab = t">{{ tabName(t) }}</button>
+    </div>
 
-        <div v-if="detail && !editing" class="detail">
-          <div class="detail-head">
-            <b>{{ detail.hand }}</b>
-            <span class="muted small">{{ detail.combos }} combos<template v-if="detail.f && detail.w !== 1"> · weight {{ fmtPct(detail.w) }}</template></span>
-            <div class="spacer"></div>
-            <button class="x" @click="selectedHand = null">×</button>
-          </div>
-          <div v-if="!detail.f" class="muted small">Not in range</div>
+    <!-- ===== strategy ===== -->
+    <template v-if="tab === 'strategy' && isDecision">
+      <div v-if="!node" class="empty">
+        No solution saved at this spot.
+        <div class="tools">
+          <button class="btn primary" @click="openForm('strategy', true)">Create solution</button>
+          <button class="btn" @click="openImport('strategy')">Import CSV</button>
+        </div>
+      </div>
+      <div v-else class="main-grid">
+        <div>
+          <div v-if="!actions.length" class="empty">No actions. Tap Edit to add actions.</div>
           <template v-else>
-            <div v-for="(a, i) in actions" :key="i" class="drow">
-              <i :style="{background: colors[i]}"></i>
-              <span class="dn">{{ a }}</span>
-              <div class="dbar"><div :style="{width: pct(detail.f[i]), background: colors[i]}"></div></div>
-              <span class="dv">{{ fmtPct(detail.f[i]) }}</span>
+            <div class="stack-bar"><div v-for="(a, i) in actions" :key="i" :style="{width: pct(summary.freqs[i]), background: colors[i]}"></div></div>
+            <div class="legend">
+              <span v-for="(a, i) in actions" :key="i"><i :style="{background: colors[i]}"></i>{{ a }} <b>{{ fmtPct(summary.freqs[i]) }}</b></span>
+              <span class="muted">{{ summary.combos.toFixed(1) }} combos</span>
             </div>
-            <div class="dstats" v-if="detail.ev != null || detail.eq != null">
-              <span v-if="detail.ev != null">EV <b>{{ detail.ev.toFixed(2) }}bb</b></span>
-              <span v-if="detail.eq != null">Equity <b>{{ fmtPct(detail.eq) }}</b></span>
+            <div class="seg" v-if="!editing">
+              <button :class="{on: viewMode === 'strategy'}" @click="viewMode = 'strategy'">Strategy</button>
+              <button :class="{on: viewMode === 'ev'}" :disabled="!hasEv" @click="viewMode = 'ev'">EV</button>
+              <button :class="{on: viewMode === 'equity'}" :disabled="!hasEq" @click="viewMode = 'equity'">Equity</button>
+            </div>
+            <div v-if="editing" class="panel" style="margin:10px 0">
+              <div class="brush-row" v-for="(a, i) in actions" :key="i">
+                <button class="pure" :style="{background: colors[i]}" @click="setPure(i)">{{ a }}</button>
+                <input type="range" min="0" max="100" step="5" v-model.number="brush.freqs[i]">
+                <input class="num" type="number" min="0" max="100" inputmode="numeric" v-model.number="brush.freqs[i]">
+              </div>
+              <div class="brush-row">
+                <span class="lab">Weight</span>
+                <input type="range" min="0" max="100" step="5" v-model.number="brush.weight">
+                <input class="num" type="number" min="0" max="100" inputmode="numeric" v-model.number="brush.weight">
+              </div>
+              <div class="stack-bar" style="margin-top:6px"><div v-for="(f, i) in brushNorm" :key="i" :style="{width: pct(f), background: colors[i]}"></div></div>
+              <div class="brush-actions">
+                <label class="small"><input type="checkbox" v-model="brush.erase"> Erase</label>
+                <button class="btn" @click="clearDraft">Clear all</button>
+                <div class="spacer"></div>
+                <button class="btn" @click="cancelEdit">Cancel</button>
+                <button class="btn primary" @click="saveEdit">Save</button>
+              </div>
+              <div class="muted small" style="margin-top:4px">Tap or drag over cells to paint. Tap an action name for 100%.</div>
+            </div>
+            <div class="grid" :class="{editing}" @pointerdown="onGridDown" @pointermove="onGridMove">
+              <div v-for="c in gridCells" :key="c.hand" class="cell" :data-hand="c.hand"
+                   :class="{sel: c.hand === selectedHand, out: !c.w}" :style="c.bg ? {background: c.bg} : null">
+                <div v-if="c.segs" class="fill" :style="{height: (c.w * 100) + '%'}">
+                  <div v-for="(s, k) in c.segs" :key="k" :style="{width: s.pct + '%', background: s.color}"></div>
+                </div>
+                <span class="lbl">{{ c.hand }}</span>
+                <span v-if="c.val != null" class="val">{{ c.val }}</span>
+              </div>
             </div>
           </template>
         </div>
-      </template>
-    </section>
-
-    <!-- report -->
-    <section v-if="current.kind === 'report'">
-      <div v-if="!actions.length || !reportRows.length" class="empty" style="margin-top:12px">No report data yet. Tap Import → Report CSV.</div>
-      <template v-else>
-        <div class="summary">
-          <div class="stack-bar"><div v-for="(a, i) in actions" :key="i" :style="{width: pct(reportSummary.f[i]), background: colors[i]}"></div></div>
-          <div class="legend">
-            <span v-for="(a, i) in actions" :key="i"><i :style="{background: colors[i]}"></i>{{ a }} <b>{{ fmtPct(reportSummary.f[i]) }}</b></span>
+        <div class="side">
+          <div v-if="detail && !editing" class="panel">
+            <div class="detail-head">
+              <b>{{ detail.hand }}</b>
+              <span class="muted small">{{ detail.combos }} combos<template v-if="detail.f && detail.w !== 1"> · weight {{ fmtPct(detail.w) }}</template></span>
+              <div class="spacer"></div>
+              <button class="x" @click="selectedHand = null">×</button>
+            </div>
+            <div v-if="!detail.f" class="muted small">Not in range</div>
+            <template v-else>
+              <div v-for="(a, i) in actions" :key="i" class="drow">
+                <i :style="{background: colors[i]}"></i>
+                <span class="dn">{{ a }}</span>
+                <div class="dbar"><div :style="{width: pct(detail.f[i]), background: colors[i]}"></div></div>
+                <span class="dv">{{ fmtPct(detail.f[i]) }}</span>
+              </div>
+              <div class="dstats" v-if="detail.ev != null || detail.eq != null">
+                <span v-if="detail.ev != null">EV <b>{{ detail.ev.toFixed(2) }}bb</b></span>
+                <span v-if="detail.eq != null">Equity <b>{{ fmtPct(detail.eq) }}</b></span>
+              </div>
+            </template>
+          </div>
+          <div v-else-if="!editing" class="panel muted small">Tap a hand to see its details.</div>
+          <div v-if="node.note" class="panel"><h4>Note</h4><p class="note">{{ node.note }}</p></div>
+          <div class="panel" v-if="!editing">
+            <div class="tools">
+              <button class="btn" @click="startEdit" :disabled="!actions.length">Edit grid</button>
+              <button class="btn" @click="openForm('strategy', false)">Edit</button>
+              <button class="btn" @click="openImport('strategy')">Import CSV</button>
+              <button class="btn danger" @click="deleteNodeObj(node)">Delete</button>
+            </div>
           </div>
         </div>
-        <div class="filter-row">
-          <input v-model="reportFilter" placeholder="Filter: A  K7  paired  monotone  twotone  rainbow">
-          <span class="muted small">{{ filteredReport.length }}/{{ reportRows.length }}</span>
-        </div>
-        <div class="table-wrap">
-          <table class="report">
-            <thead><tr>
-              <th @click="sortReport('board')">Board{{ sortMark('board') }}</th>
-              <th class="mix">Mix</th>
-              <th v-for="(a, i) in actions" :key="i" @click="sortReport(i)">{{ a }}{{ sortMark(i) }}</th>
-              <th v-if="reportHas.eq" @click="sortReport('eq')">EQ{{ sortMark('eq') }}</th>
-              <th v-if="reportHas.ev" @click="sortReport('ev')">EV{{ sortMark('ev') }}</th>
-            </tr></thead>
-            <tbody>
-              <tr class="avg">
-                <td>Average</td>
-                <td class="mix"><div class="stack-bar"><div v-for="(a, i) in actions" :key="i" :style="{width: pct(reportSummary.f[i]), background: colors[i]}"></div></div></td>
-                <td v-for="(a, i) in actions" :key="i">{{ fmtPct(reportSummary.f[i]) }}</td>
-                <td v-if="reportHas.eq">{{ fmtPct(reportSummary.eq) }}</td>
-                <td v-if="reportHas.ev">{{ fmtNum(reportSummary.ev) }}</td>
-              </tr>
-              <tr v-for="(r, ri) in filteredReport.slice(0, reportLimit)" :key="ri">
-                <td><span class="board"><span v-for="(c, k) in r.cards" :key="k" class="card sm" :class="'s-' + c.s">{{ c.r }}</span></span><span v-if="!r.cards.length">{{ r.board }}</span></td>
-                <td class="mix"><div class="stack-bar"><div v-for="(a, i) in actions" :key="i" :style="{width: pct(r.f[i]), background: colors[i]}"></div></div></td>
-                <td v-for="(a, i) in actions" :key="i">{{ fmtPct(r.f[i]) }}</td>
-                <td v-if="reportHas.eq">{{ fmtPct(r.eq) }}</td>
-                <td v-if="reportHas.ev">{{ fmtNum(r.ev) }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div v-if="filteredReport.length > reportLimit" style="text-align:center;margin-top:8px">
-          <button class="btn" @click="reportLimit = 100000">Show all {{ filteredReport.length }} rows</button>
-        </div>
-      </template>
-    </section>
+      </div>
+    </template>
 
-    <!-- next actions -->
-    <section class="next" v-if="current.kind === 'strategy' && actions.length">
-      <h3>Next</h3>
-      <div class="act-list">
-        <div v-for="(a, i) in actions" :key="i" class="act-row">
-          <button class="act" @click="onActionTap(a)">
-            <i :style="{background: colors[i]}"></i>
-            <span>{{ a }}</span>
-            <span class="muted small">{{ fmtPct(summary.freqs[i]) }}</span>
-            <div class="spacer"></div>
-            <span v-if="childrenByVia(a).length === 1" class="go">›</span>
-            <span v-else-if="childrenByVia(a).length > 1" class="go">{{ childrenByVia(a).length }} {{ expandedVia === a ? '▾' : '›' }}</span>
-            <span v-else class="add">+</span>
-          </button>
-          <ul v-if="expandedVia === a" class="sublist">
-            <li v-for="ch in childrenByVia(a)" :key="ch.id" @click="go(ch.id)">
-              <span v-if="ch.board" class="board"><span v-for="(c, k) in parseBoard(ch.board)" :key="k" class="card sm" :class="'s-' + c.s">{{ c.r }}</span></span>
-              <span>{{ ch.title || ch.street || ch.kind }}</span>
-            </li>
-            <li class="addrow" @click="newNode(current.id, a)">+ Add another</li>
-          </ul>
+    <!-- ===== ranges ===== -->
+    <template v-if="tab === 'ranges'">
+      <div class="ranges">
+        <div v-for="p in rangePlayers" :key="p.pos">
+          <div class="rhead">
+            <b>{{ p.pos }}</b>
+            <span class="muted small">{{ p.combos.toFixed(1) }} combos ({{ fmtPct(p.share) }})</span>
+            <span v-if="p.isActor" class="muted small">· to act</span>
+            <span v-if="p.approx" class="warn small" title="Some earlier decisions have no saved solution">· approx.</span>
+          </div>
+          <range-grid :weights="p.w" :strategy="p.strategy" :colors="p.colors"></range-grid>
         </div>
       </div>
-    </section>
+      <p class="muted small">Ranges are built from the saved solutions along this line. “approx.” means an earlier decision for that player has no saved data.</p>
+    </template>
 
-    <section class="next" v-if="otherChildren.length || current.kind !== 'strategy'">
-      <h3>{{ current.kind === 'strategy' ? 'Other children' : 'Contents' }}</h3>
-      <div v-if="!otherChildren.length" class="empty">Empty. Use “+ Child” to add a spot, board, or report.</div>
-      <ul v-else class="list">
-        <li v-for="n in otherChildren" :key="n.id" @click="go(n.id)">
-          <span class="kind">{{ n.kind }}</span>
-          <span v-if="n.board && n.kind === 'strategy'" class="board"><span v-for="(c, k) in parseBoard(n.board)" :key="k" class="card sm" :class="'s-' + c.s">{{ c.r }}</span></span>
-          <span class="lname">{{ nodeLabel(n) }}</span>
-          <div class="spacer"></div>
-          <span class="muted small">›</span>
-        </li>
-      </ul>
-    </section>
-  </main>
+    <!-- ===== report ===== -->
+    <template v-if="tab === 'report'">
+      <div v-if="!reportNode" class="empty">
+        No flop report for this decision.
+        <div class="tools"><button class="btn primary" @click="openForm('report', true)">Create report</button></div>
+      </div>
+      <template v-else>
+        <div v-if="!reportActions.length || !reportRows.length" class="empty">
+          No report data yet.
+          <div class="tools"><button class="btn primary" @click="openImport('report')">Import report CSV</button></div>
+        </div>
+        <template v-else>
+          <div class="panel" style="margin-top:10px">
+            <div class="stack-bar"><div v-for="(a, i) in reportActions" :key="i" :style="{width: pct(reportSummary.f[i]), background: reportColors[i]}"></div></div>
+            <div class="legend">
+              <span v-for="(a, i) in reportActions" :key="i"><i :style="{background: reportColors[i]}"></i>{{ a }} <b>{{ fmtPct(reportSummary.f[i]) }}</b></span>
+            </div>
+          </div>
+          <div class="filter-row">
+            <input v-model="reportFilter" placeholder="Filter: A  K7  paired  monotone  twotone  rainbow">
+            <span class="muted small">{{ filteredReport.length }}/{{ reportRows.length }}</span>
+          </div>
+          <div class="table-wrap">
+            <table class="report">
+              <thead><tr>
+                <th @click="sortReport('board')">Board{{ sortMark('board') }}</th>
+                <th class="mix">Mix</th>
+                <th v-for="(a, i) in reportActions" :key="i" @click="sortReport(i)">{{ a }}{{ sortMark(i) }}</th>
+                <th v-if="reportHas.eq" @click="sortReport('eq')">EQ{{ sortMark('eq') }}</th>
+                <th v-if="reportHas.ev" @click="sortReport('ev')">EV{{ sortMark('ev') }}</th>
+              </tr></thead>
+              <tbody>
+                <tr class="avg">
+                  <td>Average</td>
+                  <td class="mix"><div class="stack-bar"><div v-for="(a, i) in reportActions" :key="i" :style="{width: pct(reportSummary.f[i]), background: reportColors[i]}"></div></div></td>
+                  <td v-for="(a, i) in reportActions" :key="i">{{ fmtPct(reportSummary.f[i]) }}</td>
+                  <td v-if="reportHas.eq">{{ fmtPct(reportSummary.eq) }}</td>
+                  <td v-if="reportHas.ev">{{ fmtNum(reportSummary.ev) }}</td>
+                </tr>
+                <tr v-for="(r, ri) in filteredReport.slice(0, reportLimit)" :key="ri" :class="{cur: r.board === path.board.slice(0, 6)}" @click="openReportBoard(r)">
+                  <td><span class="board"><span v-for="(c, k) in r.cards" :key="k" class="card sm" :class="'s-' + c.s">{{ c.r }}</span></span><span v-if="!r.cards.length">{{ r.board }}</span></td>
+                  <td class="mix"><div class="stack-bar"><div v-for="(a, i) in reportActions" :key="i" :style="{width: pct(r.f[i]), background: reportColors[i]}"></div></div></td>
+                  <td v-for="(a, i) in reportActions" :key="i">{{ fmtPct(r.f[i]) }}</td>
+                  <td v-if="reportHas.eq">{{ fmtPct(r.eq) }}</td>
+                  <td v-if="reportHas.ev">{{ fmtNum(r.ev) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div v-if="filteredReport.length > reportLimit" style="text-align:center;margin-top:8px">
+            <button class="btn" @click="reportLimit = 100000">Show all {{ filteredReport.length }} rows</button>
+          </div>
+          <p class="muted small">Tap a row to open that flop.</p>
+        </template>
+        <div class="panel" style="margin-top:10px">
+          <p v-if="reportNode.note" class="note" style="margin-bottom:8px">{{ reportNode.note }}</p>
+          <div class="tools">
+            <button class="btn" @click="openForm('report', false)">Edit</button>
+            <button class="btn" @click="openImport('report')">Import CSV</button>
+            <button class="btn danger" @click="deleteNodeObj(reportNode)">Delete report</button>
+          </div>
+        </div>
+      </template>
+    </template>
+  </template>
 
-  <!-- ===== NODE FORM ===== -->
+  <!-- ===== solution form ===== -->
   <div v-if="form" class="modal-bg" @click.self="form = null">
     <div class="modal">
-      <h3>{{ form.isNew ? 'New node' : 'Edit node' }}</h3>
-      <label>Kind
-        <select v-model="form.kind">
-          <option value="folder">Folder — group of spots</option>
-          <option value="strategy">Strategy — hand grid</option>
-          <option value="report">Report — by board</option>
-        </select>
-      </label>
-      <label>Title <input v-model="form.title" placeholder="e.g. SRP BTN vs BB 100bb"></label>
-      <label v-if="form.parent_id">Via (action taken at parent)
-        <input v-model="form.via" placeholder="e.g. Check">
-        <div class="via-chips" v-if="formParentActions.length">
-          <button v-for="a in formParentActions" :key="a" type="button" :class="{on: form.via === a}" @click="form.via = a">{{ a }}</button>
+      <h3>{{ form.isNew ? 'New' : 'Edit' }} {{ form.kind === 'report' ? 'flop report' : 'solution' }}</h3>
+      <div class="spot-desc">{{ describePath(form.path, form.kind) }}<br><b>{{ form.actor }}</b> to act</div>
+      <label>Actions (comma separated)
+        <input v-model="form.actionsText" placeholder="Check, Bet 33%, Bet 75%">
+        <div class="chips">
+          <button v-for="s in form.presets" :key="s" type="button" @click="form.actionsText = s">{{ s }}</button>
         </div>
       </label>
-      <template v-if="form.kind !== 'folder'">
-        <div class="row2">
-          <label>Street
-            <select v-model="form.street">
-              <option value="">–</option><option>preflop</option><option>flop</option><option>turn</option><option>river</option>
-            </select>
-          </label>
-          <label>Actor <input v-model="form.actor" placeholder="BB"></label>
-        </div>
-        <label v-if="form.kind === 'strategy'">Board <input v-model="form.board" placeholder="AsKd7c" autocapitalize="off"></label>
-        <div class="row2">
-          <label>Pot (bb) <input v-model="form.pot" inputmode="decimal"></label>
-          <label>Eff. stack (bb) <input v-model="form.stack" inputmode="decimal"></label>
-        </div>
-        <label>Actions (comma separated) <input v-model="form.actionsText" placeholder="Check, Bet 33%, Bet 75%"></label>
-      </template>
+      <div class="row2">
+        <label>Pot (bb) <input v-model="form.pot" inputmode="decimal"></label>
+        <label>Eff. stack (bb) <input v-model="form.stack" inputmode="decimal"></label>
+      </div>
       <label>Note <textarea v-model="form.note" rows="3" placeholder="What you learned here"></textarea></label>
       <div class="modal-actions">
         <button class="btn" @click="form = null">Cancel</button>
@@ -436,7 +485,47 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0}
     </div>
   </div>
 
-  <!-- ===== IMPORT ===== -->
+  <!-- ===== card picker ===== -->
+  <div v-if="picker" class="modal-bg" @click.self="picker = null">
+    <div class="modal">
+      <h3>Select {{ picker.street }} <span class="muted small">({{ picker.sel.length }}/{{ picker.need }})</span></h3>
+      <div class="picker">
+        <div v-for="s in SUITS" :key="s" class="prow">
+          <button v-for="r in RANKS" :key="r" class="pcard" :class="['s-' + s, {sel: picker.sel.includes(r + s)}]"
+                  :disabled="deadCards.has(r + s)" @click="togglePick(r + s)">{{ r }}</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn" @click="randomPick">Random</button>
+        <div class="spacer"></div>
+        <button class="btn" @click="picker = null">Cancel</button>
+        <button class="btn primary" :disabled="picker.sel.length !== picker.need" @click="confirmPick">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== library ===== -->
+  <div v-if="libOpen" class="modal-bg" @click.self="libOpen = false">
+    <div class="modal wide">
+      <h3>{{ path.game }} <span class="muted small">· {{ libraryList.length }} saved</span></h3>
+      <div class="row">
+        <button class="btn" @click="openImport('json')">Import JSON</button>
+        <button class="btn" @click="exportGame">Export game</button>
+        <button class="btn" @click="renameGame">Rename</button>
+        <button class="btn danger" @click="deleteGame">Delete game</button>
+      </div>
+      <div v-if="!libraryList.length" class="empty">Nothing saved in this game yet.</div>
+      <ul v-else class="list">
+        <li v-for="n in libraryList" :key="n.id" @click="openNode(n)">
+          <span class="kind">{{ n.kind === 'report' ? 'report' : (n.street || 'pre') }}</span>
+          <span>{{ describePath(n, n.kind) }}</span>
+        </li>
+      </ul>
+      <div class="modal-actions"><button class="btn" @click="libOpen = false">Close</button></div>
+    </div>
+  </div>
+
+  <!-- ===== import ===== -->
   <div v-if="imp" class="modal-bg" @click.self="imp = null">
     <div class="modal">
       <h3>Import</h3>
@@ -454,7 +543,7 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0}
     </div>
   </div>
 
-  <!-- ===== SETTINGS ===== -->
+  <!-- ===== settings ===== -->
   <div v-if="sForm" class="modal-bg" @click.self="sForm = null">
     <div class="modal">
       <h3>Settings</h3>
@@ -465,10 +554,14 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0}
         <span class="small">{{ testMsg }}</span>
       </div>
       <hr>
-      <div class="muted small">{{ nodeCount }} nodes on this device · {{ pendingCount }} pending changes</div>
+      <div class="muted small">{{ nodeCount }} items on this device · {{ pendingCount }} pending changes</div>
       <div class="row">
         <button class="btn" @click="exportAll">Export backup</button>
         <label class="btn" style="margin:0;color:var(--text);font-size:14px">Restore backup<input type="file" accept=".json" hidden @change="restoreBackup"></label>
+      </div>
+      <div class="row" v-if="legacyNodes.length">
+        <span class="small warn">{{ legacyNodes.length }} items from the old folder version (not shown).</span>
+        <button class="btn danger" @click="deleteLegacy">Delete them</button>
       </div>
       <div class="row"><button class="btn danger" @click="clearCache">Clear local cache</button></div>
       <div class="modal-actions">
@@ -483,20 +576,23 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0}
 </script>
 
 <script>
-/* ================= constants & helpers ================= */
+/* ================= constants ================= */
 const RANKS = 'AKQJT98765432';
 const SUITS = 'shdc';
 const SUIT_SYM = { s: '♠', h: '♥', d: '♦', c: '♣' };
-const TEXT_FIELDS = ['id', 'parent_id', 'via', 'kind', 'title', 'street', 'board', 'actor', 'note', 'updated_at'];
+const POS = ['UTG', 'HJ', 'CO', 'BTN', 'SB', 'BB'];          // 6max, preflop order
+const POST_ORDER = ['SB', 'BB', 'UTG', 'HJ', 'CO', 'BTN'];
+const TEXT_FIELDS = ['id', 'game', 'kind', 'board', 'actor', 'street', 'note', 'updated_at', 'parent_id', 'title'];
 const NUM_FIELDS = ['pot', 'stack'];
-const JSON_FIELDS = ['actions', 'range', 'strategy', 'ev', 'equity', 'report'];
+const JSON_FIELDS = ['pre', 'post', 'actions', 'range', 'strategy', 'ev', 'equity', 'report'];
 const ALL_FIELDS = TEXT_FIELDS.concat(NUM_FIELDS, JSON_FIELDS);
-const LS = { settings: 'sl.settings', nodes: 'sl.nodes', pending: 'sl.pending' };
+const LS = { settings: 'sl.settings', nodes: 'sl.nodes', pending: 'sl.pending', games: 'sl.games', last: 'sl.lastGame' };
 
 const HANDS = [];
 for (let i = 0; i < 13; i++) for (let j = 0; j < 13; j++) HANDS.push(handAt(i, j));
 const HAND_SET = new Set(HANDS);
 
+/* ================= helpers ================= */
 function handAt(i, j) {
   if (i === j) return RANKS[i] + RANKS[j];
   return i < j ? RANKS[i] + RANKS[j] + 's' : RANKS[j] + RANKS[i] + 'o';
@@ -512,6 +608,8 @@ function num(v) {
   const s = String(v).replace('%', '').trim();
   return s === '' ? NaN : parseFloat(s);
 }
+function sameArr(a, b) { a = a || []; b = b || []; return a.length === b.length && a.every((x, i) => x === b[i]); }
+function startsWith(a, p) { a = a || []; return p.length <= a.length && p.every((x, i) => x === a[i]); }
 function normSuits(s) {
   return String(s).replace(/♠/g, 's').replace(/♥/g, 'h').replace(/♦/g, 'd').replace(/♣/g, 'c').replace(/10/g, 'T');
 }
@@ -524,17 +622,20 @@ function parseBoard(str) {
   }
   return out;
 }
-function normBoardStr(s) {
-  if (!s) return '';
+function cardsStr(cards) { return cards.map(c => c.r + c.s).join(''); }
+const cardOrder = c => RANKS.indexOf(c.r) * 4 + SUITS.indexOf(c.s);
+/** canonical board: flop cards sorted high→low, turn/river kept in order */
+function canonBoard(s) {
   const cards = parseBoard(s);
-  return cards.length ? cards.map(c => c.r + c.s).join('') : String(s).trim();
+  if (!cards.length) return '';
+  const flop = cards.slice(0, 3).sort((a, b) => cardOrder(a) - cardOrder(b));
+  return cardsStr(flop.concat(cards.slice(3, 5)));
 }
 function classOf(r1, r2, suited) {
   if (r1 === r2) return r1 + r2;
   const [a, b] = RANKS.indexOf(r1) < RANKS.indexOf(r2) ? [r1, r2] : [r2, r1];
   return a + b + (suited ? 's' : 'o');
 }
-/** "AKs" / "AKo" / "AA" / combos like "AsKd" -> hand class, or null */
 function normHand(raw) {
   const s = normSuits(String(raw).trim()).replace(/\s+/g, '');
   let m = s.match(/^([AKQJT2-9])([shdc])([AKQJT2-9])([shdc])$/i);
@@ -552,7 +653,6 @@ function normHand(raw) {
   }
   return null;
 }
-/** number of combos of a hand class given dead cards (board) */
 function combosOf(hand, dead) {
   if (!HAND_SET.has(hand)) return 0;
   const av = r => SUITS.split('').filter(s => !dead.has(r + s));
@@ -562,13 +662,26 @@ function combosOf(hand, dead) {
   const common = a1.filter(s => a2.includes(s)).length;
   return hand[2] === 's' ? common : a1.length * a2.length - common;
 }
+function actionType(label) {
+  const l = String(label).toLowerCase();
+  if (/fold/.test(l)) return 'fold';
+  if (/check/.test(l)) return 'check';
+  if (/call|limp/.test(l)) return 'call';
+  return 'raise';
+}
+function typeColor(label) {
+  const t = actionType(label);
+  if (t === 'fold') return '#6b9be0';
+  if (t === 'check' || t === 'call') return '#5fb878';
+  return /all.?in|jam|shove/i.test(label) ? '#7a1f2b' : '#e0603c';
+}
 function actionColors(actions) {
   const res = [], aggr = [];
   actions.forEach((a, i) => {
-    const l = String(a).toLowerCase();
-    if (/fold/.test(l)) res[i] = '#6b9be0';
-    else if (/check|call/.test(l)) res[i] = '#5fb878';
-    else if (/all.?in|jam|shove/.test(l)) res[i] = '#7a1f2b';
+    const t = actionType(a);
+    if (t === 'fold') res[i] = '#6b9be0';
+    else if (t === 'check' || t === 'call') res[i] = '#5fb878';
+    else if (/all.?in|jam|shove/i.test(a)) res[i] = '#7a1f2b';
     else aggr.push(i);
   });
   const size = a => { const m = String(a).match(/([\d.]+)/); return m ? parseFloat(m[1]) : 0; };
@@ -587,12 +700,21 @@ function heat(t) {
   const l = k => Math.round(c1[k] + (c2[k] - c1[k]) * u);
   return `rgb(${l(0)},${l(1)},${l(2)})`;
 }
-function parseTable(text) {
-  const lines = String(text).replace(/\r/g, '').split('\n').map(l => l.trim()).filter(Boolean);
-  if (!lines.length) return [];
-  const first = lines[0];
-  const delim = first.includes('\t') ? '\t' : (first.includes(';') && !first.includes(',')) ? ';' : ',';
-  return lines.map(l => l.split(delim).map(c => c.trim().replace(/^"(.*)"$/, '$1')));
+function splitTok(t) {
+  const i = String(t).indexOf(':');
+  return i < 0 ? ['', String(t)] : [t.slice(0, i).trim(), t.slice(i + 1).trim()];
+}
+function normLine(v) {
+  if (Array.isArray(v)) return v.map(x => String(x).trim()).filter(Boolean);
+  if (typeof v === 'string') {
+    const s = v.trim();
+    if (s.startsWith('[')) { try { return normLine(JSON.parse(s)); } catch (e) { /* fall through */ } }
+    return s.split(/\s*[\/~>›]\s*/).map(x => x.trim()).filter(Boolean);
+  }
+  return [];
+}
+function keyOf(game, pre, board, post, kind) {
+  return [game || '', (pre || []).join('~'), board || '', (post || []).join('~'), kind || 'strategy'].join('|');
 }
 function normalize(arr) {
   const s = arr.reduce((a, b) => a + b, 0);
@@ -602,6 +724,13 @@ function resizeVec(v, n) {
   const out = (v || []).slice(0, n);
   while (out.length < n) out.push(0);
   return out;
+}
+function parseTable(text) {
+  const lines = String(text).replace(/\r/g, '').split('\n').map(l => l.trim()).filter(Boolean);
+  if (!lines.length) return [];
+  const first = lines[0];
+  const delim = first.includes('\t') ? '\t' : (first.includes(';') && !first.includes(',')) ? ';' : ',';
+  return lines.map(l => l.split(delim).map(c => c.trim().replace(/^"(.*)"$/, '$1')));
 }
 function download(name, text) {
   const blob = new Blob([text], { type: 'application/json' });
@@ -622,39 +751,129 @@ function lsSet(key, val) {
   try { localStorage.setItem(key, JSON.stringify(val)); return true; } catch (e) { return false; }
 }
 
-/** Clean an arbitrary object into a node (no id/parent handling). */
+/** Raw (sheet / JSON) object -> clean node */
 function cleanNode(d) {
   const n = {};
   TEXT_FIELDS.forEach(f => { if (d[f] != null && d[f] !== '') n[f] = String(d[f]); });
   NUM_FIELDS.forEach(f => { const v = num(d[f]); if (!isNaN(v)) n[f] = v; });
   JSON_FIELDS.forEach(f => {
     let v = d[f];
+    if (f === 'pre' || f === 'post') { n[f] = normLine(v); return; }
     if (typeof v === 'string') { try { v = JSON.parse(v); } catch (e) { v = undefined; } }
     if (v != null) n[f] = v;
   });
-  if (n.board) n.board = normBoardStr(n.board);
+  if (n.board) n.board = canonBoard(n.board);
   if (Array.isArray(n.actions)) n.actions = n.actions.map(String);
-  if (!['folder', 'strategy', 'report'].includes(n.kind)) {
-    n.kind = n.report ? 'report' : (n.strategy || n.actions) ? 'strategy' : 'folder';
-  }
+  if (n.kind !== 'report') n.kind = 'strategy';
+  if (n.kind === 'report' && Array.isArray(n.report)) n.report = n.report.map(r => ({ ...r, board: canonBoard(r.board) || r.board }));
   return n;
 }
 function toServer(n) {
   const o = {};
-  ALL_FIELDS.forEach(f => { if (n[f] !== undefined && n[f] !== null && n[f] !== '') o[f] = n[f]; });
+  ALL_FIELDS.forEach(f => {
+    const v = n[f];
+    if (v === undefined || v === null || v === '') return;
+    if ((f === 'pre' || f === 'post') && !v.length) return;
+    o[f] = v;
+  });
   return o;
 }
 
+/* ================= betting engine (street closing) ================= */
+function runStreet(order, active, tokens, start, onTok) {
+  const players = order.filter(p => active.has(p));
+  let needs = new Set(players);
+  let facing = false;
+  let cur = players[0];
+  let i = start;
+  while (i < tokens.length && needs.size) {
+    const [p0, label] = splitTok(tokens[i]);
+    const pos = POS.includes(p0) ? p0 : cur;
+    const t = actionType(label);
+    if (onTok) onTok(tokens[i], i, pos, label);
+    if (t === 'fold') { active.delete(pos); needs.delete(pos); }
+    else if (t === 'raise') { facing = true; needs = new Set(players.filter(p => active.has(p) && p !== pos)); }
+    else needs.delete(pos);
+    i++;
+    if (active.size <= 1) return { i, over: true };
+    const k = players.indexOf(pos);
+    cur = null;
+    for (let d = 1; d <= players.length; d++) { const p = players[(k + d) % players.length]; if (needs.has(p)) { cur = p; break; } }
+  }
+  return { i, closed: needs.size === 0, cur, facing };
+}
+
+/** Walks a line and tells where we are: preflop decision / board selection / postflop decision / over. */
+function simulate(pre, board, post) {
+  const steps = [];
+  const active = new Set(POS);
+  const cards = parseBoard(board);
+  const activeList = () => POST_ORDER.filter(p => active.has(p));
+  let r = runStreet(POS, active, pre, 0, (tok, i) => steps.push({ type: 'act', street: 'preflop', tok, go: { pre: pre.slice(0, i), board: '', post: [] } }));
+  if (r.over) return { phase: 'over', steps, active: activeList() };
+  if (!r.closed) {
+    steps.push({ type: 'cur', pos: r.cur });
+    return { phase: 'preflop', street: 'preflop', actor: r.cur, facing: r.facing, steps, active: activeList(), preLen: pre.length };
+  }
+  const STREETS = [['flop', 3], ['turn', 4], ['river', 5]];
+  let i = 0, prevN = 0;
+  for (const [name, n] of STREETS) {
+    const boardBefore = cardsStr(cards.slice(0, prevN));
+    if (cards.length < n) {
+      steps.push({ type: 'cur-board', street: name });
+      return { phase: 'board', street: name, need: n - prevN, steps, active: activeList(), boardBefore, postLen: i };
+    }
+    steps.push({ type: 'board', street: name, cards: cards.slice(prevN, n), go: { pre, board: boardBefore, post: post.slice(0, i) } });
+    const boardNow = cardsStr(cards.slice(0, n));
+    r = runStreet(POST_ORDER, active, post, i, (tok, j) => steps.push({ type: 'act', street: name, tok, go: { pre, board: boardNow, post: post.slice(0, j) } }));
+    i = r.i;
+    if (r.over) return { phase: 'over', steps, active: activeList() };
+    if (!r.closed) {
+      steps.push({ type: 'cur', pos: r.cur });
+      return { phase: 'decision', street: name, actor: r.cur, facing: r.facing, steps, active: activeList(), boardNow };
+    }
+    prevN = n;
+  }
+  return { phase: 'showdown', steps, active: activeList() };
+}
+
+function guessActions(sim) {
+  if (sim.phase === 'preflop') {
+    if (!sim.facing) {
+      if (sim.actor === 'BB') return ['Check', 'Raise 3.5', 'All-in'];
+      if (sim.actor === 'SB') return ['Fold', 'Call', 'Raise 3', 'All-in'];
+      return ['Fold', 'Raise 2.1', 'All-in'];
+    }
+    return ['Fold', 'Call', 'Raise', 'All-in'];
+  }
+  return sim.facing ? ['Fold', 'Call', 'Raise'] : ['Check', 'Bet 33%', 'Bet 75%'];
+}
+function presetsFor(sim) {
+  if (sim.phase === 'preflop') {
+    if (!sim.facing) {
+      if (sim.actor === 'BB') return ['Check, Raise 3.5, All-in'];
+      if (sim.actor === 'SB') return ['Fold, Call, Raise 3, All-in', 'Fold, Raise 3, All-in'];
+      return ['Fold, Raise 2.1, All-in', 'Fold, Raise 2.3, All-in', 'Fold, All-in'];
+    }
+    return ['Fold, Call, Raise, All-in', 'Fold, Call, All-in', 'Fold, All-in'];
+  }
+  if (sim.facing) return ['Fold, Call, Raise', 'Fold, Call, All-in', 'Fold, Call'];
+  return ['Check, Bet 33%, Bet 75%', 'Check, Bet 33%', 'Check, Bet 50%, Bet 125%', 'Check, Bet 25%, Bet 75%, Bet 150%'];
+}
+
 /* ================= CSV importers ================= */
+function colTypes(head, wRe) {
+  return head.slice(1).map((h, k) => ({
+    h, k: k + 1,
+    type: /^ev$/i.test(h) ? 'ev' : /^(eq|equity)$/i.test(h) ? 'eq' : wRe.test(h) ? 'w' : 'act'
+  }));
+}
 function importStrategyCSV(text) {
   const rows = parseTable(text);
   if (rows.length < 2) throw new Error('Need a header row and at least one data row.');
   const head = rows[0];
   if (!/hand|combo/i.test(head[0])) throw new Error('First column header must be "Hand".');
-  const cols = head.slice(1).map((h, k) => ({
-    h, k: k + 1,
-    type: /^ev$/i.test(h) ? 'ev' : /^(eq|equity)$/i.test(h) ? 'eq' : /^(weight|w)$/i.test(h) ? 'w' : 'act'
-  }));
+  const cols = colTypes(head, /^(weight|w)$/i);
   const act = cols.filter(c => c.type === 'act');
   const evC = cols.find(c => c.type === 'ev'), eqC = cols.find(c => c.type === 'eq'), wC = cols.find(c => c.type === 'w');
   if (!act.length) throw new Error('No action columns found.');
@@ -668,8 +887,7 @@ function importStrategyCSV(text) {
   data.forEach(r => {
     const h = normHand(r[0]);
     if (!h) { skipped++; return; }
-    const a = acc[h] || (acc[h] = { f: new Array(act.length).fill(0), n: 0, ev: 0, nev: 0, eq: 0, neq: 0, w: 0, nw: 0 });
-    a.n++;
+    const a = acc[h] || (acc[h] = { f: new Array(act.length).fill(0), ev: 0, nev: 0, eq: 0, neq: 0, w: 0, nw: 0 });
     act.forEach((c, i) => { const v = num(r[c.k]); if (!isNaN(v)) a.f[i] += v * aScale; });
     if (evC) { const v = num(r[evC.k]); if (!isNaN(v)) { a.ev += v; a.nev++; } }
     if (eqC) { const v = num(r[eqC.k]); if (!isNaN(v)) { a.eq += v * eqScale; a.neq++; } }
@@ -689,16 +907,12 @@ function importStrategyCSV(text) {
   if (!count) throw new Error('No valid hands found.');
   return { actions: act.map(c => c.h), strategy, range, ev: evC ? ev : null, equity: eqC ? equity : null, count, skipped };
 }
-
 function importReportCSV(text) {
   const rows = parseTable(text);
   if (rows.length < 2) throw new Error('Need a header row and at least one data row.');
   const head = rows[0];
-  if (!/board|flop|turn|river/i.test(head[0])) throw new Error('First column header must be "Board".');
-  const cols = head.slice(1).map((h, k) => ({
-    h, k: k + 1,
-    type: /^ev$/i.test(h) ? 'ev' : /^(eq|equity)$/i.test(h) ? 'eq' : /^(weight|w|freq|frequency|count)$/i.test(h) ? 'w' : 'act'
-  }));
+  if (!/board|flop/i.test(head[0])) throw new Error('First column header must be "Board".');
+  const cols = colTypes(head, /^(weight|w|freq|frequency|count)$/i);
   const act = cols.filter(c => c.type === 'act');
   const evC = cols.find(c => c.type === 'ev'), eqC = cols.find(c => c.type === 'eq'), wC = cols.find(c => c.type === 'w');
   if (!act.length) throw new Error('No action columns found.');
@@ -711,7 +925,7 @@ function importReportCSV(text) {
     if (!r[0]) return;
     const f = normalize(act.map(c => { const v = num(r[c.k]); return isNaN(v) ? 0 : v * aScale; }));
     if (!f) return;
-    const row = { board: normBoardStr(r[0]), f };
+    const row = { board: canonBoard(r[0]) || r[0].trim(), f };
     if (eqC) { const v = num(r[eqC.k]); if (!isNaN(v)) row.eq = round4(v * eqScale); }
     if (evC) { const v = num(r[evC.k]); if (!isNaN(v)) row.ev = round4(v); }
     if (wC) { const v = num(r[wC.k]); if (!isNaN(v) && v !== 1) row.w = v; }
@@ -721,18 +935,41 @@ function importReportCSV(text) {
   return { actions: act.map(c => c.h), report: out };
 }
 
+/* ================= range grid component ================= */
+const RangeGrid = {
+  template: '#tpl-range',
+  props: ['weights', 'strategy', 'colors'],
+  computed: {
+    cells() {
+      return HANDS.map(h => {
+        const w = (this.weights && this.weights[h]) || 0;
+        const c = { hand: h, w: Math.min(1, w) };
+        if (w > 0.0005) {
+          const f = this.strategy && this.strategy[h];
+          c.segs = f ? f.map((p, i) => ({ pct: p * 100, color: (this.colors && this.colors[i]) || '#999' })).filter(s => s.pct > 0.05)
+                     : [{ pct: 100, color: '#7fa8e6' }];
+        }
+        return c;
+      });
+    },
+  },
+};
+
 /* ================= app ================= */
 const app = Vue.createApp({
   template: '#tpl',
+  components: { RangeGrid },
   data() {
     return {
+      RANKS, SUITS,
       settings: lsGet(LS.settings, { url: '', token: '' }),
       nodes: lsGet(LS.nodes, {}),
       pending: lsGet(LS.pending, { upserts: {}, deletes: [] }),
-      currentId: null,
+      extraGames: lsGet(LS.games, []),
+      path: { game: '', pre: [], board: '', post: [] },
+      tab: 'strategy',
       selectedHand: null,
       viewMode: 'strategy',
-      expandedVia: null,
       editing: false,
       draft: null,
       brush: { freqs: [], weight: 100, erase: false },
@@ -742,6 +979,8 @@ const app = Vue.createApp({
       reportSort: { key: 'board', dir: 1 },
       reportLimit: 300,
       form: null,
+      picker: null,
+      libOpen: false,
       imp: null,
       sForm: null,
       testMsg: '',
@@ -753,15 +992,14 @@ const app = Vue.createApp({
   },
   computed: {
     configured() { return !!(this.settings.url && this.settings.token); },
-    current() { return this.currentId ? this.nodes[this.currentId] || null : null; },
     nodeCount() { return Object.keys(this.nodes).length; },
     pendingCount() { return Object.keys(this.pending.upserts).length + this.pending.deletes.length; },
     syncLabel() {
-      if (!this.configured) return 'Local only';
+      if (!this.configured) return 'Local';
       if (this.syncing) return 'Syncing…';
       if (this.syncError) return 'Sync error';
       if (this.pendingCount) return this.pendingCount + ' pending';
-      if (this.lastSync) return 'Synced ' + this.lastSync.toTimeString().slice(0, 5);
+      if (this.lastSync) return '✓ ' + this.lastSync.toTimeString().slice(0, 5);
       return '';
     },
     syncClass() {
@@ -769,40 +1007,108 @@ const app = Vue.createApp({
       if (this.configured && this.pendingCount && !this.syncing) return 'warn';
       return '';
     },
-    childrenMap() {
+    legacyNodes() { return Object.values(this.nodes).filter(n => !n.game); },
+    games() {
+      const s = new Set(this.extraGames);
+      Object.values(this.nodes).forEach(n => { if (n.game) s.add(n.game); });
+      return [...s].sort();
+    },
+    index() {
       const m = {};
-      Object.values(this.nodes).forEach(n => { const p = n.parent_id || ''; (m[p] = m[p] || []).push(n); });
-      Object.values(m).forEach(list => list.sort((a, b) => (a.id < b.id ? -1 : 1)));
+      Object.values(this.nodes).forEach(n => { if (n.game) m[keyOf(n.game, n.pre, n.board, n.post, n.kind)] = n; });
       return m;
     },
-    roots() {
-      return (this.childrenMap[''] || []).slice().sort((a, b) => this.nodeLabel(a).localeCompare(this.nodeLabel(b)));
+    gameNodes() { return Object.values(this.nodes).filter(n => n.game === this.path.game); },
+    sim() { return simulate(this.path.pre, this.path.board, this.path.post); },
+    isDecision() { return this.sim.phase === 'preflop' || this.sim.phase === 'decision'; },
+    boardCards() { return parseBoard(this.path.board); },
+    dead() { return new Set(this.boardCards.map(c => c.r + c.s)); },
+    node() {
+      if (!this.isDecision) return null;
+      const p = this.path;
+      return this.index[keyOf(p.game, p.pre, p.board, p.post, 'strategy')] || null;
     },
-    breadcrumb() {
-      const out = [];
-      let n = this.current, guard = 0;
-      while (n && guard++ < 100) { out.unshift(n); n = n.parent_id ? this.nodes[n.parent_id] : null; }
-      return out;
+    canReport() { return this.sim.street === 'flop' && (this.sim.phase === 'board' || this.sim.phase === 'decision'); },
+    reportNode() {
+      if (!this.canReport) return null;
+      const p = this.path;
+      return this.index[keyOf(p.game, p.pre, '', p.post, 'report')] || null;
     },
-    actions() { return (this.current && this.current.actions) || []; },
+    tabList() {
+      const s = this.sim;
+      if (this.isDecision) return ['strategy', 'ranges'].concat(this.canReport ? ['report'] : []);
+      if (s.phase === 'board') return (this.canReport ? ['report'] : []).concat(['ranges']);
+      return [];
+    },
+    actions() { return (this.node && this.node.actions) || []; },
     colors() { return actionColors(this.actions); },
-    hasEv() { const e = this.current && this.current.ev; return !!(e && Object.keys(e).length); },
-    hasEq() { const e = this.current && this.current.equity; return !!(e && Object.keys(e).length); },
-    otherChildren() {
-      if (!this.current) return [];
-      const kids = this.childrenMap[this.current.id] || [];
-      if (this.current.kind !== 'strategy') return kids;
-      return kids.filter(k => !this.actions.includes(k.via));
+    hasEv() { const e = this.node && this.node.ev; return !!(e && Object.keys(e).length); },
+    hasEq() { const e = this.node && this.node.equity; return !!(e && Object.keys(e).length); },
+
+    /* ---- navigation options ---- */
+    options() {
+      const s = this.sim, p = this.path;
+      if (!this.isDecision) return [];
+      const node = this.node;
+      const map = new Map();
+      const add = label => { if (!map.has(label)) map.set(label, { label, count: 0 }); return map.get(label); };
+      if (node && node.actions) node.actions.forEach(add);
+      const field = s.phase === 'preflop' ? 'pre' : 'post';
+      const cur = p[field];
+      this.gameNodes.forEach(n => {
+        const line = n[field] || [];
+        if (s.phase === 'preflop') {
+          if (!startsWith(line, cur) || line.length <= cur.length) return;
+        } else {
+          if (!sameArr(n.pre, p.pre) || !(n.board || '').startsWith(p.board) || (n.board || '').length < p.board.length) return;
+          if (!startsWith(line, cur) || line.length <= cur.length) return;
+        }
+        const [pos, label] = splitTok(line[cur.length]);
+        if (pos && pos !== s.actor) return;
+        add(label).count++;
+      });
+      const acts = (node && node.actions) || [];
+      return [...map.values()].map(o => {
+        const idx = acts.indexOf(o.label);
+        return { ...o, inNode: idx >= 0, freq: idx >= 0 && node.strategy ? this.summary.freqs[idx] : null, color: idx >= 0 ? this.colors[idx] : typeColor(o.label) };
+      });
     },
-    dead() { return new Set(parseBoard(this.current && this.current.board).map(c => c.r + c.s)); },
+    suggestions() {
+      const have = new Set(this.options.map(o => o.label));
+      return guessActions(this.sim).filter(g => !have.has(g));
+    },
+    foldTo() {
+      const s = this.sim;
+      if (s.phase !== 'preflop' || s.facing) return [];
+      if (!this.path.pre.every(t => actionType(splitTok(t)[1]) === 'fold')) return [];
+      const k = POS.indexOf(s.actor);
+      return POS.slice(k + 1, 5);
+    },
+    boardOptions() {
+      const s = this.sim, p = this.path;
+      if (s.phase !== 'board') return [];
+      const L = p.board.length, take = s.street === 'flop' ? 6 : 2;
+      const m = new Map();
+      this.gameNodes.forEach(n => {
+        const b = n.board || '';
+        if (!sameArr(n.pre, p.pre) || !startsWith(n.post || [], p.post) || !b.startsWith(p.board) || b.length < L + take) return;
+        const str = b.slice(L, L + take);
+        m.set(str, (m.get(str) || 0) + 1);
+      });
+      return [...m.entries()].map(([str, count]) => ({ str, count, cards: parseBoard(str) }))
+        .sort((a, b) => a.cards.map(cardOrder).join(',').localeCompare(b.cards.map(cardOrder).join(','), undefined, { numeric: true }));
+    },
+    deadCards() { return this.dead; },
+
+    /* ---- strategy grid ---- */
     gridSrc() {
-      const n = this.current;
+      const n = this.node;
       if (!n) return { strategy: {}, range: {} };
       return this.editing ? this.draft : { strategy: n.strategy || {}, range: n.range || {} };
     },
     gridCells() {
-      const n = this.current;
-      if (!n || n.kind !== 'strategy') return [];
+      const n = this.node;
+      if (!n) return [];
       const { strategy, range } = this.gridSrc;
       const cols = this.colors;
       const mode = this.editing ? 'strategy' : this.viewMode;
@@ -830,8 +1136,7 @@ const app = Vue.createApp({
     },
     summary() {
       const res = { freqs: [], combos: 0 };
-      const n = this.current;
-      if (!n || n.kind !== 'strategy') return res;
+      if (!this.node) return res;
       const { strategy, range } = this.gridSrc;
       const k = this.actions.length, sum = new Array(k).fill(0);
       let tot = 0;
@@ -845,7 +1150,7 @@ const app = Vue.createApp({
       return res;
     },
     detail() {
-      const h = this.selectedHand, n = this.current;
+      const h = this.selectedHand, n = this.node;
       if (!h || !n) return null;
       const f = (n.strategy || {})[h];
       const w = f ? ((n.range || {})[h] != null ? n.range[h] : 1) : 0;
@@ -856,19 +1161,46 @@ const app = Vue.createApp({
       const v = this.brush.freqs.map(x => +x || 0);
       return normalize(v) || v.map(() => 0);
     },
-    formParentActions() {
-      if (!this.form || !this.form.parent_id) return [];
-      const p = this.nodes[this.form.parent_id];
-      return (p && p.actions) || [];
+
+    /* ---- ranges ---- */
+    rangePlayers() {
+      const s = this.sim, p = this.path;
+      const R = {}, approx = {}, strat = {};
+      POS.forEach(pos => { R[pos] = {}; HANDS.forEach(h => (R[pos][h] = 1)); approx[pos] = false; });
+      const weightsOf = n => { const w = {}; HANDS.forEach(h => { w[h] = n.strategy[h] ? ((n.range || {})[h] != null ? n.range[h] : 1) : 0; }); return w; };
+      s.steps.forEach(st => {
+        if (st.type !== 'act') return;
+        const [pos, label] = splitTok(st.tok);
+        if (!R[pos]) return;
+        const n = this.index[keyOf(p.game, st.go.pre, st.go.board, st.go.post, 'strategy')];
+        if (n && n.strategy && n.actions) {
+          R[pos] = weightsOf(n);
+          approx[pos] = false;
+          const idx = n.actions.indexOf(label);
+          if (idx < 0) { approx[pos] = true; return; }
+          HANDS.forEach(h => { R[pos][h] *= ((n.strategy[h] || [])[idx] || 0); });
+        } else if (actionType(label) !== 'fold') approx[pos] = true;
+      });
+      const cur = this.node;
+      if (cur && cur.strategy && s.actor) { R[s.actor] = weightsOf(cur); approx[s.actor] = false; strat[s.actor] = cur.strategy; }
+      const order = (s.active || []).slice().sort((a, b) => (a === s.actor ? -1 : b === s.actor ? 1 : 0));
+      const dead = this.dead;
+      const totalCombos = HANDS.reduce((t, h) => t + combosOf(h, dead), 0);
+      return order.map(pos => {
+        const combos = HANDS.reduce((t, h) => t + R[pos][h] * combosOf(h, dead), 0);
+        return { pos, w: R[pos], approx: approx[pos], isActor: pos === s.actor, combos, share: combos / totalCombos,
+                 strategy: strat[pos] || null, colors: strat[pos] ? this.colors : null };
+      });
     },
-    /* report */
+
+    /* ---- report ---- */
+    reportActions() { return (this.reportNode && this.reportNode.actions) || []; },
+    reportColors() { return actionColors(this.reportActions); },
     reportRows() {
-      const r = (this.current && this.current.report) || [];
+      const r = (this.reportNode && this.reportNode.report) || [];
       return r.map(x => ({ ...x, cards: parseBoard(x.board) }));
     },
-    reportHas() {
-      return { eq: this.reportRows.some(r => r.eq != null), ev: this.reportRows.some(r => r.ev != null) };
-    },
+    reportHas() { return { eq: this.reportRows.some(r => r.eq != null), ev: this.reportRows.some(r => r.ev != null) }; },
     filteredReport() {
       const tokens = this.reportFilter.toLowerCase().split(/[\s,]+/).filter(Boolean);
       let rows = this.reportRows.filter(r => tokens.every(t => {
@@ -878,16 +1210,14 @@ const app = Vue.createApp({
         if (t === 'monotone') return r.cards.length >= 3 && suits.size === 1;
         if (t === 'twotone') return suits.size === 2;
         if (t === 'rainbow') return suits.size === r.cards.length;
-        const need = t.toUpperCase().split('');
-        return need.every(ch => ranks.includes(ch));
+        return t.toUpperCase().split('').every(ch => ranks.includes(ch));
       }));
       const { key, dir } = this.reportSort;
       const rankKey = r => r.cards.map(c => RANKS.indexOf(c.r)).sort((a, b) => a - b);
       rows = rows.slice().sort((a, b) => {
-        let d;
+        let d = 0;
         if (key === 'board') {
           const ka = rankKey(a), kb = rankKey(b);
-          d = 0;
           for (let i = 0; i < Math.max(ka.length, kb.length) && !d; i++) d = (ka[i] ?? 99) - (kb[i] ?? 99);
           if (!d) d = a.board < b.board ? -1 : a.board > b.board ? 1 : 0;
         } else if (typeof key === 'number') d = (b.f[key] || 0) - (a.f[key] || 0);
@@ -897,7 +1227,7 @@ const app = Vue.createApp({
       return rows;
     },
     reportSummary() {
-      const k = this.actions.length, f = new Array(k).fill(0);
+      const k = this.reportActions.length, f = new Array(k).fill(0);
       let tw = 0, eq = 0, eqw = 0, ev = 0, evw = 0;
       this.filteredReport.forEach(r => {
         const w = r.w != null ? r.w : 1;
@@ -908,59 +1238,171 @@ const app = Vue.createApp({
       });
       return { f: f.map(v => (tw ? v / tw : 0)), eq: eqw ? eq / eqw : null, ev: evw ? ev / evw : null };
     },
-    /* import */
+
+    /* ---- library / import ---- */
+    libraryList() {
+      const key = n => [(n.pre || []).length, (n.pre || []).join('~'), n.board || '', (n.post || []).length, (n.post || []).join('~'), n.kind].join('|');
+      return this.gameNodes.slice().sort((a, b) => key(a).localeCompare(key(b), undefined, { numeric: true }));
+    },
     importModes() {
-      const n = this.imp && this.imp.target;
+      const m = this.imp && this.imp.mode;
       const modes = [];
-      if (n && n.kind === 'strategy') modes.push({ id: 'strategy', label: 'Strategy CSV' });
-      if (n && n.kind === 'report') modes.push({ id: 'report', label: 'Report CSV' });
-      modes.push({ id: 'json', label: 'Nodes JSON' });
+      if (this.isDecision) modes.push({ id: 'strategy', label: 'Strategy CSV' });
+      if (this.canReport) modes.push({ id: 'report', label: 'Report CSV' });
+      modes.push({ id: 'json', label: 'JSON' });
+      if (m && !modes.some(x => x.id === m)) modes.push({ id: m, label: m });
       return modes;
     },
     importHelp() {
       const m = this.imp && this.imp.mode;
-      if (m === 'strategy') return 'Replaces this node\'s actions & strategy.\n\nHand,Check,Bet 33%,Bet 75%,EV,EQ\nAA,20,30,50,12.4,0.86\nAKs,...\n\nHands: AA / AKs / AKo, or combos (AsKd → averaged per class).\nValues 0–1 or %. Optional columns: EV, EQ (Equity), Weight.';
-      if (m === 'report') return 'Replaces this node\'s actions & report.\n\nBoard,Check,Bet 33%,Bet 75%,EQ,EV\nAsKd7c,40,45,15,55.2,3.1\n...\n\nOne row per board. Optional columns: EQ, EV, Weight (board frequency).';
-      return 'Adds nodes under ' + (this.imp && this.imp.target ? '“' + this.nodeLabel(this.imp.target) + '”' : 'Home') + '.\nAccepts files from Export, or nested JSON:\n\n{"title":"SRP BTN vs BB","kind":"folder","children":[\n  {"kind":"strategy","board":"AsKd7c","street":"flop","actor":"BB",\n   "actions":["Check","Bet 33%"],"strategy":{"AA":[0.6,0.4]}}\n]}';
+      if (m === 'strategy') return 'Saves to the current spot (' + this.sim.actor + ' to act). Replaces actions & strategy.\n\nHand,Check,Bet 33%,Bet 75%,EV,EQ\nAA,20,30,50,12.4,0.86\nAKs,...\n\nHands: AA / AKs / AKo, or combos (AsKd → averaged per class).\nValues 0–1 or %. Optional: EV, EQ (Equity), Weight.';
+      if (m === 'report') return 'Saves the flop report for this decision. Replaces actions & rows.\n\nBoard,Check,Bet 33%,Bet 75%,EQ,EV\nAsKd7c,40,45,15,55.2,3.1\n...\n\nOptional: EQ, EV, Weight (board frequency).';
+      return 'Adds or replaces solutions by spot (game + line + board).\n\n{"nodes":[{\n "game":"MTT 6max 40bb",\n "pre":"UTG:Fold / HJ:Fold / CO:Fold / BTN:Raise 2.1 / SB:Fold / BB:Call",\n "board":"AsKd7c",\n "post":"BB:Check",\n "actions":["Check","Bet 33%","Bet 75%"],\n "strategy":{"AA":[0.2,0.5,0.3]},\n "ev":{"AA":12.4}, "equity":{"AA":0.86}\n}]}\n\nMissing "game" → current game. Report: "kind":"report", "board":"", "report":[{"board":"AsKd7c","f":[...]}]';
     },
   },
   watch: {
-    currentId() { this.selectedHand = null; this.editing = false; this.expandedVia = null; this.reportFilter = ''; this.reportLimit = 300; this.viewMode = 'strategy'; },
+    path: {
+      deep: true,
+      handler() {
+        this.selectedHand = null;
+        this.editing = false;
+        this.reportFilter = '';
+        this.reportLimit = 300;
+        this.viewMode = 'strategy';
+        if (this.isDecision) { if (this.tab !== 'ranges') this.tab = 'strategy'; }
+        else if (!this.tabList.includes(this.tab) || this.tab === 'ranges') this.tab = this.tabList[0] || 'strategy';
+        if (this.path.game) lsSet(LS.last, this.path.game);
+        this.$nextTick(() => { const el = this.$refs.strip; if (el) el.scrollLeft = el.scrollWidth; });
+      },
+    },
+    tabList(v) { if (!v.includes(this.tab)) this.tab = v[0] || 'strategy'; },
   },
   methods: {
-    parseBoard, suitSym(s) { return SUIT_SYM[s] || s; },
+    suitSym(s) { return SUIT_SYM[s] || s; },
     pct(x) { return ((x || 0) * 100).toFixed(2) + '%'; },
     fmtPct(x) { return x == null || isNaN(x) ? '–' : (x * 100).toFixed(1) + '%'; },
     fmtNum(x) { return x == null || isNaN(x) ? '–' : (+x).toFixed(2); },
-    nodeLabel(n) {
-      if (!n) return '';
-      return n.title || n.via || (n.board ? parseBoard(n.board).map(c => c.r + SUIT_SYM[c.s]).join('') : '') || '(untitled)';
-    },
-    childrenByVia(a) { return (this.childrenMap[this.currentId] || []).filter(k => k.via === a); },
-    subtreeIds(id) {
-      const out = [id];
-      for (let i = 0; i < out.length; i++) (this.childrenMap[out[i]] || []).forEach(k => out.push(k.id));
-      return out;
-    },
-    subtreeSize(id) { return this.subtreeIds(id).length; },
+    tokPos(t) { return splitTok(t)[0]; },
+    tokLabel(t) { return splitTok(t)[1]; },
+    isFold(t) { return actionType(splitTok(t)[1]) === 'fold'; },
+    tabName(t) { return { strategy: 'Strategy', ranges: 'Ranges', report: 'Flop report' }[t]; },
     toast(msg) { this.toastMsg = msg; clearTimeout(this._tt); this._tt = setTimeout(() => (this.toastMsg = ''), 2600); },
+    stepColor(st) {
+      const [, label] = splitTok(st.tok);
+      const n = this.index[keyOf(this.path.game, st.go.pre, st.go.board, st.go.post, 'strategy')];
+      if (n && n.actions) { const i = n.actions.indexOf(label); if (i >= 0) return actionColors(n.actions)[i]; }
+      return typeColor(label);
+    },
+    describePath(n, kind) {
+      const pre = (n.pre || []).filter(t => actionType(splitTok(t)[1]) !== 'fold').map(t => t.replace(':', ' ')).join(' › ')
+        || (n.actor ? 'Folded to ' + n.actor : 'Preflop start');
+      const board = n.board ? ' | ' + parseBoard(n.board).map(c => c.r + SUIT_SYM[c.s]).join('') : '';
+      const post = (n.post || []).length ? ' | ' + n.post.map(t => t.replace(':', ' ')).join(' › ') : '';
+      return pre + (kind === 'report' ? ' | Flop report' : board) + post;
+    },
 
     /* ---- navigation ---- */
-    go(id) {
-      const h = id ? '#' + id : '#';
-      if (location.hash !== h && !(location.hash === '' && h === '#')) location.hash = h;
-      else this.currentId = id;
-      window.scrollTo(0, 0);
+    pathToHash(p) {
+      const q = new URLSearchParams();
+      if (p.game) q.set('g', p.game);
+      if (p.pre.length) q.set('p', p.pre.join('~'));
+      if (p.board) q.set('b', p.board);
+      if (p.post.length) q.set('q', p.post.join('~'));
+      return '#' + q.toString();
     },
     readHash() {
-      const id = decodeURIComponent(location.hash.slice(1));
-      this.currentId = id && this.nodes[id] ? id : null;
+      const q = new URLSearchParams(location.hash.slice(1));
+      const split = s => (s ? s.split('~').filter(Boolean) : []);
+      let game = q.get('g') || '';
+      if (!game) { const last = lsGet(LS.last, ''); game = this.games.includes(last) ? last : (this.games[0] || ''); }
+      this.path = { game, pre: split(q.get('p')), board: q.get('b') || '', post: split(q.get('q')) };
     },
-    onActionTap(a) {
-      const list = this.childrenByVia(a);
-      if (list.length === 1) this.go(list[0].id);
-      else if (!list.length) this.newNode(this.currentId, a);
-      else this.expandedVia = this.expandedVia === a ? null : a;
+    setPath(p) {
+      const np = { game: p.game, pre: (p.pre || []).slice(), board: p.board || '', post: (p.post || []).slice() };
+      const h = this.pathToHash(np);
+      if (location.hash !== h) location.hash = h;
+      else this.path = np;
+    },
+    goStep(st) { this.setPath({ game: this.path.game, ...st.go }); },
+    chooseAction(label) {
+      const s = this.sim, p = this.path;
+      const tok = s.actor + ':' + label;
+      if (s.phase === 'preflop') this.setPath({ ...p, pre: [...p.pre, tok], board: '', post: [] });
+      else this.setPath({ ...p, board: s.boardNow, post: [...p.post, tok] });
+    },
+    customAction() {
+      const label = (prompt('Action label (e.g. Raise 2.5, Bet 50%, All-in)') || '').trim();
+      if (label) this.chooseAction(label.replace(/[~|:]/g, ' '));
+    },
+    foldToPos(target) {
+      const s = this.sim, p = this.path;
+      const toks = [];
+      for (let k = POS.indexOf(s.actor); k < POS.indexOf(target); k++) toks.push(POS[k] + ':Fold');
+      this.setPath({ ...p, pre: [...p.pre, ...toks] });
+    },
+    pickBoard(str) { this.setPath({ ...this.path, board: this.sim.boardBefore + str }); },
+    openPicker() { this.picker = { street: this.sim.street, need: this.sim.need, sel: [] }; },
+    togglePick(c) {
+      const sel = this.picker.sel, i = sel.indexOf(c);
+      if (i >= 0) sel.splice(i, 1);
+      else if (sel.length < this.picker.need) sel.push(c);
+      else { sel.shift(); sel.push(c); }
+    },
+    randomPick() {
+      const deck = [];
+      for (const r of RANKS) for (const s of SUITS) if (!this.dead.has(r + s)) deck.push(r + s);
+      const sel = [];
+      while (sel.length < this.picker.need) { const c = deck.splice(Math.floor(Math.random() * deck.length), 1)[0]; sel.push(c); }
+      this.picker.sel = sel;
+    },
+    confirmPick() {
+      let str = this.picker.sel.join('');
+      if (this.picker.street === 'flop') str = canonBoard(str);
+      this.picker = null;
+      this.pickBoard(str);
+    },
+    openReportBoard(r) {
+      const flop = canonBoard(r.board).slice(0, 6);
+      if (flop.length < 6) return;
+      this.setPath({ ...this.path, board: flop });
+      this.tab = 'strategy';
+    },
+    openNode(n) {
+      this.libOpen = false;
+      this.setPath({ game: n.game, pre: n.pre, board: n.board || '', post: n.post });
+      if (n.kind === 'report') this.$nextTick(() => (this.tab = 'report'));
+    },
+
+    /* ---- games ---- */
+    onGameSelect(e) {
+      const v = e.target.value;
+      if (v === '__new') { e.target.value = this.path.game; this.newGame(); return; }
+      this.setPath({ game: v, pre: [], board: '', post: [] });
+    },
+    newGame() {
+      const name = (prompt('Game name (e.g. MTT 6max 40bb, Cash 6max 100bb)') || '').trim().replace(/[|~]/g, ' ');
+      if (!name) return;
+      if (!this.extraGames.includes(name)) { this.extraGames.push(name); lsSet(LS.games, this.extraGames); }
+      this.setPath({ game: name, pre: [], board: '', post: [] });
+    },
+    renameGame() {
+      const old = this.path.game;
+      const name = (prompt('Rename game', old) || '').trim().replace(/[|~]/g, ' ');
+      if (!name || name === old) return;
+      const list = this.gameNodes.map(n => ({ ...clone(n), game: name }));
+      this.saveNodes(list);
+      this.extraGames = this.extraGames.map(g => (g === old ? name : g));
+      lsSet(LS.games, this.extraGames);
+      this.setPath({ ...this.path, game: name });
+    },
+    deleteGame() {
+      const g = this.path.game, list = this.gameNodes;
+      if (!confirm(`Delete game “${g}” and its ${list.length} saved item(s)?`)) return;
+      this.deleteMany(list.map(n => n.id));
+      this.extraGames = this.extraGames.filter(x => x !== g);
+      lsSet(LS.games, this.extraGames);
+      this.libOpen = false;
+      this.setPath({ game: this.games[0] || '', pre: [], board: '', post: [] });
     },
 
     /* ---- persistence & sync ---- */
@@ -1019,20 +1461,13 @@ const app = Vue.createApp({
           this.persist();
           this.syncError = '';
           this.lastSync = new Date();
-          if (this.currentId && !this.nodes[this.currentId]) this.go(null);
-          if (!silent) this.toast('Synced · ' + data.nodes.length + ' nodes');
+          if (!this.path.game && this.games.length) this.setPath({ game: this.games[0], pre: [], board: '', post: [] });
+          if (!silent) this.toast('Synced · ' + data.nodes.length + ' items');
         } catch (e) {
           this.syncError = e.message;
           if (!silent) this.toast('Sync failed: ' + e.message);
         } finally { this.syncing = false; }
       });
-    },
-    saveNode(n) {
-      const node = clone(n);
-      this.nodes[node.id] = node;
-      this.pending.upserts[node.id] = this.nodes[node.id];
-      this.persist();
-      this.pushPending();
     },
     saveNodes(list) {
       list.forEach(n => {
@@ -1043,82 +1478,75 @@ const app = Vue.createApp({
       this.persist();
       this.pushPending();
     },
-
-    /* ---- node CRUD ---- */
-    guessActions(via) {
-      if (!via) return '';
-      if (/bet|raise|all.?in|jam/i.test(via)) return 'Fold, Call, Raise';
-      if (/check/i.test(via)) return 'Check, Bet 33%, Bet 75%';
-      return '';
-    },
-    newNode(parentId, via) {
-      const p = parentId ? this.nodes[parentId] : null;
-      this.form = {
-        isNew: true, parent_id: parentId || '', kind: p ? 'strategy' : 'folder',
-        title: '', via: via || '', street: (p && p.street) || '', board: (p && p.board) || '', actor: '',
-        pot: p && p.pot != null ? String(p.pot) : '', stack: p && p.stack != null ? String(p.stack) : '',
-        actionsText: this.guessActions(via), note: '',
-      };
-    },
-    editNode(n) {
-      this.form = {
-        isNew: false, id: n.id, parent_id: n.parent_id || '', kind: n.kind, title: n.title || '', via: n.via || '',
-        street: n.street || '', board: n.board || '', actor: n.actor || '',
-        pot: n.pot != null ? String(n.pot) : '', stack: n.stack != null ? String(n.stack) : '',
-        actionsText: (n.actions || []).join(', '), note: n.note || '',
-      };
-    },
-    saveForm() {
-      const f = this.form;
-      const node = f.isNew ? { id: uid(), parent_id: f.parent_id || '' } : clone(this.nodes[f.id]);
-      node.kind = f.kind;
-      const set = (k, v) => { if (v === '' || v == null || (typeof v === 'number' && isNaN(v))) delete node[k]; else node[k] = v; };
-      set('title', f.title.trim());
-      set('via', f.via.trim());
-      set('note', f.note);
-      if (f.kind !== 'folder') {
-        set('street', f.street);
-        set('actor', f.actor.trim());
-        set('board', f.kind === 'strategy' ? normBoardStr(f.board) : '');
-        set('pot', num(f.pot));
-        set('stack', num(f.stack));
-        const acts = f.actionsText.split(/[,\n]/).map(s => s.trim()).filter(Boolean);
-        const old = node.actions || [];
-        node.actions = acts;
-        if (old.length !== acts.length) {
-          if (node.strategy) {
-            Object.keys(node.strategy).forEach(h => {
-              const v = normalize(resizeVec(node.strategy[h], acts.length));
-              if (v) node.strategy[h] = v; else delete node.strategy[h];
-            });
-          }
-          if (node.report) {
-            node.report = node.report.map(r => ({ ...r, f: normalize(resizeVec(r.f, acts.length)) })).filter(r => r.f);
-          }
-        }
-      }
-      this.saveNode(node);
-      this.form = null;
-      if (f.isNew) this.go(node.id);
-    },
-    deleteNode(n) {
-      const ids = this.subtreeIds(n.id);
-      const msg = ids.length > 1 ? `Delete “${this.nodeLabel(n)}” and ${ids.length - 1} child node(s)?` : `Delete “${this.nodeLabel(n)}”?`;
-      if (!confirm(msg)) return;
-      const parent = n.parent_id || null;
+    saveNode(n) { this.saveNodes([n]); },
+    deleteMany(ids) {
       ids.forEach(id => {
         delete this.nodes[id];
         delete this.pending.upserts[id];
         if (!this.pending.deletes.includes(id)) this.pending.deletes.push(id);
       });
       this.persist();
-      this.go(parent && this.nodes[parent] ? parent : null);
       this.pushPending();
+    },
+    deleteNodeObj(n) {
+      if (!confirm(n.kind === 'report' ? 'Delete this flop report?' : 'Delete the solution at this spot?')) return;
+      this.deleteMany([n.id]);
+    },
+    deleteLegacy() {
+      if (!confirm(`Delete ${this.legacyNodes.length} old item(s)?`)) return;
+      this.deleteMany(this.legacyNodes.map(n => n.id));
+    },
+    /** Base object for a node at the current spot. */
+    spotBase(kind) {
+      const s = this.sim, p = this.path;
+      const actor = s.actor || (s.active || [])[0] || '';
+      return {
+        game: p.game, kind, pre: p.pre.slice(), post: p.post.slice(),
+        board: kind === 'report' ? '' : (s.boardNow || ''),
+        actor, street: s.street || 'preflop',
+      };
+    },
+    ensureNode(kind) {
+      const existing = kind === 'report' ? this.reportNode : this.node;
+      return existing ? clone(existing) : { id: uid(), ...this.spotBase(kind) };
+    },
+
+    /* ---- form ---- */
+    openForm(kind, isNew) {
+      const n = isNew ? null : (kind === 'report' ? this.reportNode : this.node);
+      const base = n || this.spotBase(kind);
+      const presets = presetsFor(kind === 'report' ? { phase: 'decision', facing: false } : this.sim);
+      this.form = {
+        kind, isNew: !n, path: base, actor: base.actor, presets,
+        actionsText: n ? (n.actions || []).join(', ') : presets[0],
+        pot: n && n.pot != null ? String(n.pot) : '', stack: n && n.stack != null ? String(n.stack) : '',
+        note: (n && n.note) || '',
+      };
+    },
+    saveForm() {
+      const f = this.form;
+      const node = this.ensureNode(f.kind);
+      const set = (k, v) => { if (v === '' || v == null || (typeof v === 'number' && isNaN(v))) delete node[k]; else node[k] = v; };
+      set('pot', num(f.pot));
+      set('stack', num(f.stack));
+      set('note', f.note);
+      const acts = f.actionsText.split(/[,\n]/).map(s => s.trim().replace(/[~|:]/g, ' ')).filter(Boolean);
+      const old = node.actions || [];
+      node.actions = acts;
+      if (old.length !== acts.length || old.some((a, i) => a !== acts[i])) {
+        // keep data aligned by label when possible
+        const remap = v => normalize(acts.map(a => { const i = old.indexOf(a); return i >= 0 ? (v[i] || 0) : 0; }));
+        if (node.strategy) Object.keys(node.strategy).forEach(h => { const v = remap(node.strategy[h]); if (v) node.strategy[h] = v; else delete node.strategy[h]; });
+        if (node.report) node.report = node.report.map(r => ({ ...r, f: remap(r.f) })).filter(r => r.f);
+      }
+      this.saveNode(node);
+      this.form = null;
+      if (f.kind === 'report') this.tab = 'report';
     },
 
     /* ---- grid editing ---- */
     startEdit() {
-      const n = this.current;
+      const n = this.node;
       this.draft = { strategy: clone(n.strategy || {}), range: clone(n.range || {}) };
       this.brush = { freqs: this.actions.map((a, i) => (i === 0 ? 100 : 0)), weight: 100, erase: false };
       this.selectedHand = null;
@@ -1128,7 +1556,7 @@ const app = Vue.createApp({
     clearDraft() { if (confirm('Clear all hands in this grid?')) { this.draft.strategy = {}; this.draft.range = {}; } },
     cancelEdit() { this.editing = false; this.draft = null; },
     saveEdit() {
-      const node = clone(this.current);
+      const node = clone(this.node);
       node.strategy = clone(this.draft.strategy);
       node.range = clone(this.draft.range);
       if (!Object.keys(node.range).length) delete node.range;
@@ -1150,9 +1578,7 @@ const app = Vue.createApp({
         this.painting = true;
         this.paintedSet = new Set();
         this.paint(h);
-      } else {
-        this.selectedHand = this.selectedHand === h ? null : h;
-      }
+      } else this.selectedHand = this.selectedHand === h ? null : h;
     },
     onGridMove(e) {
       if (!this.painting) return;
@@ -1164,14 +1590,12 @@ const app = Vue.createApp({
       this.paintedSet.add(h);
       const d = this.draft;
       if (this.brush.erase) { delete d.strategy[h]; delete d.range[h]; return; }
-      const v = this.brush.freqs.map(x => +x || 0);
-      const f = normalize(v);
+      const f = normalize(this.brush.freqs.map(x => +x || 0));
       if (!f) return;
-      d.strategy[h] = f;
       const w = Math.max(0, Math.min(100, +this.brush.weight || 0)) / 100;
-      if (w <= 0) { delete d.strategy[h]; delete d.range[h]; }
-      else if (w >= 0.999) delete d.range[h];
-      else d.range[h] = round4(w);
+      if (w <= 0) { delete d.strategy[h]; delete d.range[h]; return; }
+      d.strategy[h] = f;
+      if (w >= 0.999) delete d.range[h]; else d.range[h] = round4(w);
     },
 
     /* ---- report ---- */
@@ -1182,10 +1606,7 @@ const app = Vue.createApp({
     sortMark(key) { return this.reportSort.key === key ? (this.reportSort.dir > 0 ? ' ▾' : ' ▴') : ''; },
 
     /* ---- import / export ---- */
-    openImport(target) {
-      const mode = target && target.kind === 'strategy' ? 'strategy' : target && target.kind === 'report' ? 'report' : 'json';
-      this.imp = { target, mode, text: '', error: '' };
-    },
+    openImport(mode) { this.imp = { mode, text: '', error: '' }; },
     async onImportFile(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
@@ -1197,81 +1618,67 @@ const app = Vue.createApp({
       imp.error = '';
       try {
         if (imp.mode === 'strategy') {
+          if (!this.isDecision) throw new Error('Go to a decision point first.');
           const r = importStrategyCSV(imp.text);
-          const node = clone(this.nodes[imp.target.id]);
+          const node = this.ensureNode('strategy');
           node.actions = r.actions;
           node.strategy = r.strategy;
           if (Object.keys(r.range).length) node.range = r.range; else delete node.range;
           if (r.ev) node.ev = r.ev; else delete node.ev;
           if (r.equity) node.equity = r.equity; else delete node.equity;
           this.saveNode(node);
+          this.tab = 'strategy';
           this.toast(`Imported ${r.count} hands` + (r.skipped ? ` (${r.skipped} rows skipped)` : ''));
         } else if (imp.mode === 'report') {
+          if (!this.canReport) throw new Error('Go to a flop decision first.');
           const r = importReportCSV(imp.text);
-          const node = clone(this.nodes[imp.target.id]);
+          const node = this.ensureNode('report');
           node.actions = r.actions;
           node.report = r.report;
           this.saveNode(node);
+          this.tab = 'report';
           this.toast(`Imported ${r.report.length} boards`);
         } else {
-          const created = this.importNodesJSON(imp.text, imp.target ? imp.target.id : '');
-          this.toast(`Imported ${created} node(s)`);
+          const n = this.importNodesJSON(imp.text);
+          this.toast(`Imported ${n} item(s)`);
         }
         this.imp = null;
       } catch (e) {
         imp.error = e.message || String(e);
       }
     },
-    importNodesJSON(text, parentId) {
+    importNodesJSON(text) {
       let data;
       try { data = JSON.parse(text); } catch (e) { throw new Error('Invalid JSON: ' + e.message); }
       if (data && Array.isArray(data.nodes)) data = data.nodes;
       if (!Array.isArray(data)) data = [data];
-      data = data.filter(d => d && typeof d === 'object');
-      const created = [];
-      const isFlat = data.some(d => d.id && d.parent_id !== undefined) && !data.some(d => Array.isArray(d.children));
-      if (isFlat) {
-        const idMap = {};
-        data.forEach(d => { if (d.id) idMap[d.id] = uid(); });
-        data.forEach(d => {
-          const n = cleanNode(d);
-          n.id = idMap[d.id] || uid();
-          n.parent_id = d.parent_id && idMap[d.parent_id] ? idMap[d.parent_id] : parentId || '';
-          delete n.updated_at;
-          created.push(n);
-        });
-      } else {
-        const walk = (d, pid) => {
-          const n = cleanNode(d);
-          n.id = uid();
-          n.parent_id = pid || '';
-          delete n.updated_at;
-          created.push(n);
-          (Array.isArray(d.children) ? d.children : []).forEach(c => walk(c, n.id));
-        };
-        data.forEach(d => walk(d, parentId));
-      }
-      if (!created.length) throw new Error('No nodes found.');
-      this.saveNodes(created);
-      return created.length;
+      const list = [];
+      data.filter(d => d && typeof d === 'object').forEach(d => {
+        const n = cleanNode(d);
+        if (!n.game) n.game = this.path.game;
+        if (!n.game) throw new Error('No "game" given and no game selected.');
+        delete n.id; delete n.updated_at; delete n.parent_id; delete n.title;
+        if (n.kind === 'report') n.board = '';
+        const sim = simulate(n.pre, n.board || '', n.post);
+        if (!n.actor && sim.actor) n.actor = sim.actor;
+        if (!n.street && sim.street) n.street = sim.street;
+        const existing = this.index[keyOf(n.game, n.pre, n.board, n.post, n.kind)];
+        n.id = existing ? existing.id : uid();
+        list.push(n);
+      });
+      if (!list.length) throw new Error('No items found.');
+      this.saveNodes(list);
+      return list.length;
     },
-    buildTree(id) {
-      const n = this.nodes[id];
-      const o = toServer(n);
-      delete o.id; delete o.parent_id; delete o.updated_at;
-      const kids = this.childrenMap[id] || [];
-      if (kids.length) o.children = kids.map(k => this.buildTree(k.id));
-      return o;
-    },
-    exportSubtree(id) {
-      const tree = this.buildTree(id);
-      const name = (this.nodeLabel(this.nodes[id]).replace(/[^\w\-]+/g, '_').replace(/^_|_$/g, '') || 'node') + '.json';
-      download(name, JSON.stringify({ app: 'solution-library', version: 1, type: 'subtree', nodes: [tree] }, null, 1));
+    exportGame() {
+      const nodes = this.gameNodes.map(n => { const o = toServer(n); delete o.id; delete o.updated_at; return o; });
+      const name = this.path.game.replace(/[^\w\-]+/g, '_') + '.json';
+      download(name, JSON.stringify({ app: 'solution-library', version: 2, type: 'nodes', nodes }, null, 1));
     },
     exportAll() {
       const nodes = Object.values(this.nodes).map(toServer);
       const d = new Date().toISOString().slice(0, 10);
-      download(`solution-library-backup-${d}.json`, JSON.stringify({ app: 'solution-library', version: 1, type: 'backup', exported_at: new Date().toISOString(), nodes }));
+      download(`solution-library-backup-${d}.json`, JSON.stringify({ app: 'solution-library', version: 2, type: 'backup', exported_at: new Date().toISOString(), nodes }));
     },
     async restoreBackup(e) {
       const file = e.target.files && e.target.files[0];
@@ -1279,10 +1686,10 @@ const app = Vue.createApp({
       try {
         const data = JSON.parse(await readFile(file));
         const list = (data && data.nodes) || [];
-        if (data.type !== 'backup' || !list.every(n => n.id)) throw new Error('Not a backup file (use Import for subtree files).');
-        if (!confirm(`Restore ${list.length} nodes? Existing nodes with the same id will be overwritten.`)) return;
+        if (data.type !== 'backup' || !list.every(n => n.id)) throw new Error('Not a backup file (use Import JSON for game files).');
+        if (!confirm(`Restore ${list.length} items? Items with the same id will be overwritten.`)) return;
         this.saveNodes(list.map(cleanNode));
-        this.toast(`Restored ${list.length} nodes`);
+        this.toast(`Restored ${list.length} items`);
       } catch (err) { alert(err.message); }
       e.target.value = '';
     },
@@ -1293,7 +1700,7 @@ const app = Vue.createApp({
       this.testMsg = 'Testing…';
       try {
         const r = await this.api('ping', {}, { url: this.sForm.url.trim(), token: this.sForm.token.trim() });
-        this.testMsg = `✓ Connected (${r.count} nodes in sheet)`;
+        this.testMsg = `✓ Connected (${r.count} items in sheet)`;
       } catch (e) { this.testMsg = '✗ ' + e.message; }
     },
     saveSettings() {
@@ -1304,17 +1711,15 @@ const app = Vue.createApp({
       if (changed && this.configured) this.sync();
     },
     clearCache() {
-      if (!confirm('Clear all nodes cached on this device?' + (this.pendingCount ? `\n${this.pendingCount} unsynced change(s) will be lost.` : ''))) return;
+      if (!confirm('Clear all items cached on this device?' + (this.pendingCount ? `\n${this.pendingCount} unsynced change(s) will be lost.` : ''))) return;
       this.nodes = {};
       this.pending = { upserts: {}, deletes: [] };
       this.persist();
-      this.go(null);
       this.sForm = null;
       if (this.configured) this.sync();
     },
   },
   mounted() {
-    // re-link pending upserts to node objects
     Object.keys(this.pending.upserts).forEach(id => {
       if (this.nodes[id]) this.pending.upserts[id] = this.nodes[id];
       else delete this.pending.upserts[id];
